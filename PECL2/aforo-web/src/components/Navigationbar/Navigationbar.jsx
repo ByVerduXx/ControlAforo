@@ -4,15 +4,25 @@ import './Navigationbar.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
+import useUser from '../../hooks/useUser';
 
 
 function Navigationbar() {
 
-    const isLogged = false
+    const {isLogged, logout} = useUser();
     const username = 'ByVerduXx'
 
     const profile = `/profile/${username}`
+
+    const history = useHistory()
+
+    const handleClick = e => {
+        e.preventDefault();
+        logout();
+        history.push('/')
+    }
 
     return (
         <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
@@ -40,7 +50,7 @@ function Navigationbar() {
                                     <i className="fas fa-exclamation-circle"></i>
                                 </NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item href="">
+                                <NavDropdown.Item href="/" onClick={handleClick}>
                                     Logout &nbsp;
                                     <i className="fas fa-sign-out-alt"/>
                                 </NavDropdown.Item>

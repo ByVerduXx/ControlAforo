@@ -7,4 +7,18 @@
     top: 0;
     width: 100%;
     z-index: -10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formulario {
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+}
+
+input {
+    display: block;
+    margin-bottom: 30px;
 }

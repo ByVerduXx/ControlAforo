@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 function Navigationbar() {
 
-    const isLogged = true
+    const isLogged = false
     const username = 'ByVerduXx'
 
     const profile = `/profile/${username}`

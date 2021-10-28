@@ -1,0 +1,32 @@
+.home {
+    align-items: center;
+    background-color: rgb(25, 25, 25);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -10;
+}
+
+.counter-container {
+    font-size: 10rem;
+}
+
+.progress {
+    height: 20px;
+    width: 50%;
+    margin-bottom: 30px;
+}
+.button-container {
+    margin-top: 30px;
+}
+.button {
+    display: inline;
+    margin-left: 30px;
+    margin-right: 30px;
+}

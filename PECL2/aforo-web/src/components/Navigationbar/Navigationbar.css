@@ -1,0 +1,13 @@
+.navbar-title {
+    margin-left: 30px;
+}
+.dropdown-menu {
+    background-color: rgb(33, 37, 41);
+}
+.dropdown-item {
+    color: #fff;
+    right: 50%;
+}
+#navbar-dark-example {
+    padding-right: 50px;
+}

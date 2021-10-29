@@ -8,7 +8,8 @@ import Navigationbar from './components/Navigationbar/Navigationbar';
 
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
-import Register from './pages/Register';
+import Register from './pages/Register/Register';
+import Notify from './pages/Notify/Notify'
 
 import { UserContextProvider } from './context/UserContext';
 
@@ -23,7 +24,7 @@ function App() {
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <Route path='/profile/:username' component={Home} />
-            <Route path='/notify' component={Home} />
+            <Route path='/notify' component={Notify} />
           </Switch>
         </Router>
       </div>

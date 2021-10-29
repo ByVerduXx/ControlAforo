@@ -1,5 +1,4 @@
-
-.login {
+.notify {
     background-color: rgb(25, 25, 25);
     color: #fff;
     height: 100vh;
@@ -20,3 +19,13 @@ h1 {
     font-weight: bold;
 }
 
+p {
+    position: absolute;
+    width: 40%;
+    top: 35%;
+}
+
+.boton-notify {
+    position: absolute;
+    bottom: 30%;
+}

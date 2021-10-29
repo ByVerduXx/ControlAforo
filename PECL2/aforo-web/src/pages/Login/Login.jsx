@@ -4,6 +4,9 @@ import './Login.css'
 
 import useUser from '../../hooks/useUser';
 
+import Input from '../../components/Input/Input'
+import Button from '../../components/Button/Button'
+
 function Login() {
 
     const [username, setUsername] = useState('');
@@ -24,11 +27,12 @@ function Login() {
     }
     return (
         <div className="login">
+            <h1>Login</h1>
             <div className="formulario">
                 <form onSubmit={handleSubmit}>
-                    <input type="text" placeholder="username" value={username} onChange={(e) => {setUsername(e.target.value)}} />
-                    <input type="password" placeholder="password" value={password} onChange={(e) => {setPasword(e.target.value)}}/>
-                    <button>Login</button>
+                    <Input type='text' placeholder='Username' value={username} onChange={(e) => {setUsername(e.target.value)}}/>
+                    <Input type="password" placeholder="Password" value={password} onChange={(e) => {setPasword(e.target.value)}}/>
+                    <Button type="submit">Login</Button>
                 </form>
             </div>
         </div>

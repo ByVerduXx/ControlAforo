@@ -12,14 +12,14 @@
     justify-content: center;
 }
 
-h1 {
+.notify-title {
     position: absolute;
     top: 20%;
     font-size: 4rem;
     font-weight: bold;
 }
 
-p {
+.notify.p {
     position: absolute;
     width: 40%;
     top: 35%;

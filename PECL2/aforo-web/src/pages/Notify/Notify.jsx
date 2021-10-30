@@ -6,8 +6,8 @@ import Button from '../../components/Button/Button'
 function Notify() {
     return (
         <div className="notify">
-            <h1>Notificar</h1>
-            <p>En este apartado puedes notificar que has dado positivo en COVID-19,
+            <h1 className="notify-title">Notificar</h1>
+            <p className="notify-p">En este apartado puedes notificar que has dado positivo en COVID-19,
                 para poner sobre aviso a las personas con las que has coincidido en los últimos días. Por favor, pulsa el botón solo si se trata de un positivo real.</p>
             <div className="boton-notify">
                 <Button>Notificar</Button>

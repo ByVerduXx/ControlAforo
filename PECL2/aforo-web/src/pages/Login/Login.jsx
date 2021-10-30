@@ -27,7 +27,7 @@ function Login() {
     }
     return (
         <div className="login">
-            <h1>Login</h1>
+            <h1 className="login-title">Login</h1>
             <div className="formulario">
                 <form onSubmit={handleSubmit}>
                     <Input type='text' placeholder='Username' value={username} onChange={(e) => {setUsername(e.target.value)}}/>

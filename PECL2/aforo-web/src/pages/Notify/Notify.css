@@ -19,9 +19,10 @@
     font-weight: bold;
 }
 
-.notify.p {
+.notify-p {
     position: absolute;
-    width: 40%;
+    text-align: center;
+    width: 100%;
     top: 35%;
 }
 

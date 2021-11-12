@@ -11,4 +11,10 @@ router.route('/register')
 
 router.route('/users')
     .get(authHttpHandler.getUsers);
+
+router.route('/profile/:username')
+    .get(authHttpHandler.getUserProfile)
+    .put(authHttpHandler.updateUserProfile)
+    .delete(authHttpHandler.deleteUserProfile);
+
 exports.router = router;

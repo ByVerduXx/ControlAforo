@@ -8,6 +8,7 @@ export function UserContextProvider ({children}) {
     return <Context.Provider value={{jwt, setJWT}}>
         {children}
     </Context.Provider>
+    
 
 }
 

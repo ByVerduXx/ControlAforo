@@ -77,6 +77,29 @@ const getAllUsers = () => {
     })
 }
 
+const updateUser = (userid, username, password, age, color) => {
+    return new Promise((resolve, reject) => {
+        if (userDatabase[userid]) {
+            userDatabase[userid] = {username: username, password: password, age: age, color: color}
+            resolve('User updated successfully')
+        } else {
+            reject('No user found')
+        }
+    })
+}
+
+const deleteUserProfile = (userid) => {
+    return new Promise((resolve, reject) => {
+        if (userDatabase[userid]) {
+            delete userDatabase[userid]
+            resolve('User deleted successfully')
+        } else {
+            reject('No user found')
+        }
+    })
+}
+
+
 registerUser('Verdu', 'verdu1234', '20', 'Rojo')
 registerUser('Juan', 'juan1234', '20', 'Azul')
 registerUser('Pedro', 'pedro1234', '20', 'Verde')
@@ -88,3 +111,5 @@ exports.getUser = getUser
 exports.getUserIdFromUserName = getUserIdFromUserName
 exports.checkUserCredentials = checkUserCredentials
 exports.getAllUsers = getAllUsers
+exports.updateUser = updateUser
+exports.deleteUserProfile = deleteUserProfile

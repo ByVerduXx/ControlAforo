@@ -38,7 +38,6 @@ function Navigationbar() {
                             <NavDropdown
                                 id="nav-dropdown-dark-example"
                                 title={username}
-                                menuVariant="dark"
                             >
 
                                 <NavDropdown.Item as={Link} to={profile} href={profile}>

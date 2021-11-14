@@ -23,7 +23,7 @@ function Login() {
 
     function handleSubmit (e) {
         e.preventDefault()
-        login()
+        login({username, password})
     }
     return (
         <div className="login">

@@ -5,16 +5,16 @@ const {to} = require('../tools/to')
 const loginUser = async (req, res) => {
     if (!req.body) {
         return res.status(400).json({message: 'Missing data'})
-    } else if (!req.body.user || !req.body.password) {
+    } else if (!req.body.username || !req.body.password) {
         return res.status(400).json({message: 'Missing data'})
     }
 
-    let [err, resp] = await to(usersController.checkUserCredentials(req.body.user, req.body.password));
+    let [err, resp] = await to(usersController.checkUserCredentials(req.body.username, req.body.password));
     if (err || !resp) {
         return res.status(401).json({message: 'Invalid credentials'})
     }
 
-    let userid = await usersController.getUserIdFromUserName(req.body.user)
+    let userid = await usersController.getUserIdFromUserName(req.body.username)
     let token = jwt.sign({userid: userid}, 'secretPassword');
     res.status(200).json(
         {token: token}
@@ -24,11 +24,11 @@ const loginUser = async (req, res) => {
 const registerUser = async (req, res) => {
     if (!req.body) {
         return res.status(400).json({message: 'Missing data'})
-    } else if (!req.body.user || !req.body.password || !req.body.age || !req.body.color) {
+    } else if (!req.body.username || !req.body.password || !req.body.age || !req.body.color) {
         return res.status(400).json({message: 'Missing data'})
     }
 
-    let [err, resp] = await to(usersController.registerUser(req.body.user, req.body.password, req.body.age, req.body.color));
+    let [err, resp] = await to(usersController.registerUser(req.body.username, req.body.password, req.body.age, req.body.color));
     if (err) {
         return res.status(401).json({message: err})
     }
@@ -58,14 +58,14 @@ const getUserProfile = async (req, res) => {
 const updateUserProfile = async (req, res) => {
     if (!req.body) {
         return res.status(400).json({message: 'Missing data'})
-    } else if (!req.body.user || !req.body.password || !req.body.age || !req.body.color) {
+    } else if (!req.body.username || !req.body.password || !req.body.age || !req.body.color) {
         return res.status(400).json({message: 'Missing data'})
     }
     let [err, resp] = await to(usersController.getUserIdFromUserName(req.params.username));
     if (err) {
         return res.status(400).json({message: err})
     }
-    let [err2, resp2] = await to(usersController.updateUser(resp, req.body.user, req.body.password, req.body.age, req.body.color));
+    let [err2, resp2] = await to(usersController.updateUser(resp, req.body.username, req.body.password, req.body.age, req.body.color));
     if (err2) {
         return res.status(400).json({message: err2})
     }

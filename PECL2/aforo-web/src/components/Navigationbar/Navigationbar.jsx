@@ -11,9 +11,7 @@ import useUser from '../../hooks/useUser';
 
 function Navigationbar() {
 
-    const {username, isLogged, logout} = useUser();
-
-    const profile = `/profile/${username}`
+    const {isLogged, logout} = useUser();
 
     const history = useHistory()
 
@@ -36,10 +34,10 @@ function Navigationbar() {
                         {isLogged ?
                             <NavDropdown
                                 id="nav-dropdown-dark-example"
-                                title={username}
+                                title={window.sessionStorage.getItem('user')}
                             >
 
-                                <NavDropdown.Item as={Link} to={profile} href={profile}>
+                                <NavDropdown.Item as={Link} to={`/profile/${window.sessionStorage.getItem('user')}`} href={`/profile/${window.sessionStorage.getItem('user')}`}>
                                     Perfil &nbsp;
                                     <i className="far fa-user"></i>    
                                 </NavDropdown.Item>

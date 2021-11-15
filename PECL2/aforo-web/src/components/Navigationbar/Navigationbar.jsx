@@ -11,8 +11,7 @@ import useUser from '../../hooks/useUser';
 
 function Navigationbar() {
 
-    const {isLogged, logout} = useUser();
-    const username = 'ByVerduXx'
+    const {username, isLogged, logout} = useUser();
 
     const profile = `/profile/${username}`
 

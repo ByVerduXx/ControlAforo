@@ -20,3 +20,13 @@
     font-weight: bold;
 }
 
+.formulario {
+    position: absolute;
+    top: 36.75%;
+}
+
+.credentials-error {
+    position: absolute;
+    top: 30%;
+}
+

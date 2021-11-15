@@ -34,9 +34,9 @@ const registerUser = (username, password, age, color) => {
 const getUser = (userid) => {
     return new Promise((resolve, reject) => {
         if (userDatabase[userid]) {
-            resolve(userDatabase[userid])
+            return resolve(userDatabase[userid])
         } else {
-            reject()
+            return reject()
         }
     })
 }
@@ -48,26 +48,30 @@ const getUserIdFromUserName = (username) => {
                 return resolve(userid)
             }
         }
-        return reject('No user found')
+        return reject('No user foundxdddd')
     })
 }
 
 const checkUserCredentials = (username, password) => {
     return new Promise(async (resolve, reject) => {
-        let userid = await getUserIdFromUserName(username)
-        let user = await getUser(userid)
-        if (user) {
-            crypto.comparePassword(password, user.password, (err, same) => {
-                if (err) {
-                    reject(err)
+        getUserIdFromUserName(username)
+            .then(async (userid) => {
+                let user = await getUser(userid)
+                if (user) {
+                    crypto.comparePassword(password, user.password, (err, result) => {
+                        if (err) {
+                            return reject(err)
+                        } else {
+                            return resolve(result)
+                        }
+                    })
                 } else {
-                    resolve(same)
+                    return reject('No user founddddd')
                 }
             })
-        } else {
-            reject('No user found')
-        }
-
+            .catch(err => {
+                reject(err)
+            })
     })
 }
 
@@ -80,10 +84,10 @@ const getAllUsers = () => {
 const updateUser = (userid, username, password, age, color) => {
     return new Promise((resolve, reject) => {
         if (userDatabase[userid]) {
-            userDatabase[userid] = {username: username, password: password, age: age, color: color}
+            userDatabase[userid] = { username: username, password: password, age: age, color: color }
             resolve('User updated successfully')
         } else {
-            reject('No user found')
+            reject('No user foundhola')
         }
     })
 }
@@ -94,7 +98,7 @@ const deleteUserProfile = (userid) => {
             delete userDatabase[userid]
             resolve('User deleted successfully')
         } else {
-            reject('No user found')
+            reject('No user foundbeibi')
         }
     })
 }

@@ -8,12 +8,10 @@ const loginUser = async (req, res) => {
     } else if (!req.body.username || !req.body.password) {
         return res.status(400).json({message: 'Missing data'})
     }
-
     let [err, resp] = await to(usersController.checkUserCredentials(req.body.username, req.body.password));
     if (err || !resp) {
         return res.status(401).json({message: 'Invalid credentials'})
     }
-
     let userid = await usersController.getUserIdFromUserName(req.body.username)
     let token = jwt.sign({userid: userid}, 'secretPassword');
     res.status(200).json(

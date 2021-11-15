@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {useHistory} from 'react-router-dom'
 import './Login.css'
+import Spinner from 'react-bootstrap/Spinner'
 
 import useUser from '../../hooks/useUser';
 
@@ -13,7 +14,7 @@ function Login() {
     const [password, setPasword] = useState('');
     let history = useHistory()
 
-    const {login, isLogged} = useUser();
+    const {isLoginLoading, hasLoginError, login, isLogged} = useUser();
 
     useEffect(() => {
         if (isLogged) {
@@ -28,6 +29,18 @@ function Login() {
     return (
         <div className="login">
             <h1 className="login-title">Login</h1>
+            {isLoginLoading &&
+                <>
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+                &nbsp;
+                &nbsp;
+                <strong>Comprobando credenciales</strong>
+                </>
+
+            }
+            {!isLoginLoading &&
             <div className="formulario">
                 <form onSubmit={handleSubmit}>
                     <Input type='text' placeholder='Username' value={username} onChange={(e) => {setUsername(e.target.value)}}/>
@@ -35,6 +48,8 @@ function Login() {
                     <Button type="submit">Login</Button>
                 </form>
             </div>
+            }
+            {hasLoginError && <strong className="credentials-error">Nombre o contraseña invalidos</strong>}
         </div>
     )
 }

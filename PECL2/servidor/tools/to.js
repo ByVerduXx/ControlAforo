@@ -3,7 +3,9 @@ const to = (promise) => {
         .then(data => {
             return [null, data];
         })
-        .catch(err => [err, null]);
+        .catch(err => {
+           return [err, null]
+        });
 }
 
 exports.to = to;

@@ -1,11 +1,15 @@
 const express = require('express');
-const middlewares = require('./middlewares');
+const httpContext = require('express-http-context');
+const bodyParser = require('body-parser');
 //routes
 const authRoutes = require('./auth/auth.router').router;
+const userMiddleware =  require('./middlewares/userMiddleware').userMiddleware;
 
 const app = express();
 
 const port = 5000;
+
+app.use(bodyParser.json());
 
 // Configurar cabeceras y cors
 app.use((req, res, next) => {
@@ -16,7 +20,8 @@ app.use((req, res, next) => {
     next();
 });
 
-middlewares.setupMiddlewares(app);
+app.use(httpContext.middleware);
+app.use(userMiddleware)
 
 app.get('/', (req, res) => res.send('Hello World!'));
 

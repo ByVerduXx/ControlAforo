@@ -11,6 +11,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Notify from './pages/Notify/Notify'
 import NoPage from './pages/NoPage/NoPage'
+import Profile from './pages/Profile/Profile';
 
 import { UserContextProvider } from './context/UserContext';
 
@@ -24,7 +25,7 @@ function App() {
             <Route path='/' exact component={Home} />
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
-            <Route path='/profile/:username' component={Home} />
+            <Route path='/profile/:username' component={Profile} />
             <Route path='/notify' component={Notify} />
             <Route component={NoPage} />
           </Switch>

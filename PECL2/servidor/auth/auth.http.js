@@ -58,16 +58,19 @@ const getUserProfile = async (req, res) => {
 }
 
 const updateUserProfile = async (req, res) => {
+    if (httpContext.get('user') !== req.params.username) {
+        return res.status(401).json({message: 'Unauthorized'})
+    }
     if (!req.body) {
         return res.status(400).json({message: 'Missing data'})
-    } else if (!req.body.username || !req.body.password || !req.body.age || !req.body.color) {
+    } else if (!req.body.password || !req.body.age || !req.body.color) {
         return res.status(400).json({message: 'Missing data'})
     }
     let [err, resp] = await to(usersController.getUserIdFromUserName(req.params.username));
     if (err) {
         return res.status(400).json({message: err})
     }
-    let [err2, resp2] = await to(usersController.updateUser(resp, req.body.username, req.body.password, req.body.age, req.body.color));
+    let [err2, resp2] = await to(usersController.updateUser(resp, req.params.username, req.body.password, req.body.age, req.body.color));
     if (err2) {
         return res.status(400).json({message: err2})
     }
@@ -75,6 +78,9 @@ const updateUserProfile = async (req, res) => {
 }
 
 const deleteUserProfile = async (req, res) => {
+    if (httpContext.get('user') !== req.params.username) {
+        return res.status(401).json({message: 'Unauthorized'})
+    }
     let [err, resp] = await to(usersController.getUserIdFromUserName(req.params.username));
     if (err) {
         return res.status(400).json({message: err})

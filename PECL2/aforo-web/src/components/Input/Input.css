@@ -18,3 +18,11 @@
     opacity: .9;
     box-shadow: 0 0 10px 4px rgb(33, 37, 41);
 }
+.desactivado {
+    background: #111;
+    color: #ddd;
+    opacity: .5;
+}
+.desactivado:hover {
+    opacity: .5;
+}

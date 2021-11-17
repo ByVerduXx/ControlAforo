@@ -11,3 +11,18 @@
     align-items: center;
     justify-content: center;
 }
+
+.perfil-title {
+    position: absolute;
+    top: 12%;
+    font-size: 4rem;
+    font-weight: bold;
+}
+.perfil-intro {
+    position: inherit;
+}
+.perfil-form {
+    top: 25%;
+    position: absolute;
+    width: 50%;
+}

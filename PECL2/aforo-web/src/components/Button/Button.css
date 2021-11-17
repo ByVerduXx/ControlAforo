@@ -3,6 +3,8 @@ button {
     background: #111;
     color: #fff;
     padding: 12px 50px;
+    margin-bottom: 10px;
+    margin-right: 10px;
     border-radius: 20px;
     cursor: pointer;
     transition: .5s;
@@ -10,4 +12,26 @@ button {
 
 button:hover {
     background: rgb(33, 37, 41);
+}
+
+.rojo {
+    background: #e74c3c;
+}
+.rojo:hover {
+    background: #c0392b;
+}
+.azul {
+    background: #3498db;
+}
+.azul:hover {
+    background: #2980b9;
+}
+.verde {
+    background: #2ecc71;
+}
+.verde:hover {
+    background: #27ae60;
+}
+.desactivado {
+    cursor: not-allowed;
 }

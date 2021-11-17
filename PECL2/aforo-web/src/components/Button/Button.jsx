@@ -2,9 +2,12 @@ import React from 'react'
 import './Button.css'
 
 
-function Button({type="", onClick=() => {}, children}) {
+function Button({classname="", type="", onClick=() => {}, disabled=false,children}) {
+    if (disabled) {return (
+        <button className={`${classname} desactivado`} onClick={onClick} type={type} disabled>{children}</button>
+    )} else {}
     return (
-        <button onClick={onClick} type={type}>{children}</button>
+        <button className={classname} onClick={onClick} type={type}>{children}</button>
     )
 }
 

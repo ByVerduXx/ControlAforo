@@ -5,9 +5,9 @@ const httpContext =  require('express-http-context');
 
 const loginUser = async (req, res) => {
     if (!req.body) {
-        return res.status(400).json({message: 'Missing data 1'})
+        return res.status(400).json({message: 'Missing data'})
     } else if (!req.body.username || !req.body.password) {
-        return res.status(400).json({message: 'Missing data 2'})
+        return res.status(400).json({message: 'Missing data'})
     }
     let [err, resp] = await to(usersController.checkUserCredentials(req.body.username, req.body.password));
     if (err || !resp) {

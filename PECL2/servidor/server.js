@@ -1,6 +1,5 @@
 const express = require('express');
 const httpContext = require('express-http-context');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 //routes
 const authRoutes = require('./auth/auth.router').router;
@@ -10,7 +9,8 @@ const app = express();
 
 const port = 5000;
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 app.use(httpContext.middleware);

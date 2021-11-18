@@ -48,7 +48,7 @@ const getUserIdFromUserName = (username) => {
                 return resolve(userid)
             }
         }
-        return reject('No user foundxdddd')
+        return reject('No user found')
     })
 }
 
@@ -66,7 +66,7 @@ const checkUserCredentials = (username, password) => {
                         }
                     })
                 } else {
-                    return reject('No user founddddd')
+                    return reject('No user found')
                 }
             })
             .catch(err => {
@@ -87,7 +87,7 @@ const updateUser = (userid, username, password, age, color) => {
             userDatabase[userid] = { username: username, password: password, age: age, color: color }
             resolve('User updated successfully')
         } else {
-            reject('No user foundhola')
+            reject('No user found')
         }
     })
 }
@@ -98,7 +98,7 @@ const deleteUserProfile = (userid) => {
             delete userDatabase[userid]
             resolve('User deleted successfully')
         } else {
-            reject('No user foundbeibi')
+            reject('No user found')
         }
     })
 }

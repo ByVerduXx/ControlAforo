@@ -22,7 +22,21 @@
     position: inherit;
 }
 .perfil-form {
-    top: 25%;
+    top: 40%;
     position: absolute;
     width: 50%;
+}
+.error-modificar {
+    text-align: center;
+    position: absolute;
+    top: 25%;
+    font-size: 1.5rem;
+    color: red
+}
+.success-modificar {
+    text-align: center;
+    position: absolute;
+    top: 25%;
+    font-size: 1.5rem;
+    color: green
 }

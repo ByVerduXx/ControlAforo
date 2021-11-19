@@ -1,4 +1,4 @@
-const ENDPOINT = 'http://localhost:5000';
+const ENDPOINT = 'http://localhost:3001';
 
 export default function setUserData(username, jwt, userData) {
     return fetch(`${ENDPOINT}/auth/profile/${username}`, {

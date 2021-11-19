@@ -7,7 +7,7 @@ const userMiddleware =  require('./middlewares/userMiddleware').userMiddleware;
 
 const app = express();
 
-const port = 5000;
+const port = 3001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

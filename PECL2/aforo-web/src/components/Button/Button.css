@@ -13,6 +13,11 @@ button {
 button:hover {
     background: rgb(33, 37, 41);
 }
+.boton-registrar[disabled] {
+    background: #aaa;
+    color: #fff;
+    cursor: not-allowed;
+}
 
 .rojo {
     background: #e74c3c;

@@ -1,0 +1,44 @@
+.register {
+    background-color: rgb(25, 25, 25);
+    color: #fff;
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-title {
+    position: absolute;
+    top: 15%;
+    font-size: 4rem;
+    font-weight: bold;
+}
+.register-form {
+    top: 40%;
+    position: absolute;
+}
+.register-error {
+    text-align: center;
+    position: absolute;
+    top: 30%;
+    font-size: 1.5rem;
+    color: red
+}
+.register-success {
+    position: absolute;
+    text-align: center;
+    font-size: 1.5rem;
+    color: green
+}
+.botones-volver {
+    position: absolute;
+    top: 60%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

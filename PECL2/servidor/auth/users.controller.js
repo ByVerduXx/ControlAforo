@@ -15,7 +15,7 @@ const cleanUpUsers = () => {
 const registerUser = (username, password, age, color) => {
     return new Promise((resolve, reject) => {
         getUserIdFromUserName(username).then(() => {
-            return reject('User already exists')
+            return reject('El usuario ya existe')
         }).catch(() => {
             let hashedPassword = crypto.hashPassword(password)
             let userid = uuid.v4()

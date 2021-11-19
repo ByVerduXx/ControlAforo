@@ -26,7 +26,6 @@ const registerUser = async (req, res) => {
     } else if (!req.body.username || !req.body.password || !req.body.age || !req.body.color) {
         return res.status(400).json({message: 'Missing data'})
     }
-
     let [err, resp] = await to(usersController.registerUser(req.body.username, req.body.password, req.body.age, req.body.color));
     if (err) {
         return res.status(401).json({message: err})

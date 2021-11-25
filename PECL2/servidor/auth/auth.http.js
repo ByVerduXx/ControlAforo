@@ -1,6 +1,7 @@
 const usersController = require('./users.controller')
 const jwt = require('jsonwebtoken')
 const {to} = require('../tools/to')
+const crypto = require('../tools/crypto');
 const httpContext =  require('express-http-context');
 
 const loginUser = async (req, res) => {
@@ -69,7 +70,16 @@ const updateUserProfile = async (req, res) => {
     if (err) {
         return res.status(400).json({message: err})
     }
-    let [err2, resp2] = await to(usersController.updateUser(resp, req.params.username, req.body.password, req.body.age, req.body.color));
+    [err, user] = await to(usersController.getUser(resp));
+    if (err) {
+        return res.status(400).json({message: err})
+    }
+    if (req.body.password !== user.password) {
+        password = crypto.hashPassword(req.body.password)
+    } else {
+        password = user.password
+    }
+    let [err2, resp2] = await to(usersController.updateUser(resp, req.params.username, password, req.body.age, req.body.color));
     if (err2) {
         return res.status(400).json({message: err2})
     }

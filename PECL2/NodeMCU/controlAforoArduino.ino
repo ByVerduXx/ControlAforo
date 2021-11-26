@@ -5,8 +5,10 @@
 
 #define SS_PIN 9
 #define RST_PIN 10
-#define WIFI_SSID "ManuWifi" //Incluimos el nombre de nuestra red wifi
-#define WIFI_PASSWORD "1m2a3n4u"  //Introducimos su contrasena
+
+char* ssid = "ManuWifi"; //Incluimos el nombre de nuestra red wifi
+const char* password = "1m2a3n4u";
+
 
 #define LONGITUD_BYTES 18
 #define LONGITUD_BYTES_ESCRITURA 16
@@ -39,12 +41,15 @@ void loop() {
 }
 
 void initWifi(){
+
+
+  
   Serial.println();
   Serial.println("Conectandose a la red: ");
-  Serial.println(WIFI_SSID);
+  Serial.println(ssid);
   
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  //WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.println(".");
@@ -61,9 +66,12 @@ bool leer(char mensaje[LONGITUD_BYTES]){
   }
   if(!rfid.PICC_ReadCardSerial()){
     Serial.println("Error leyendo serial");
-    return false
+    return false;
   }
-
+  byte bloque = 1;
+  byte longitud = LONGITUD_BYTES;
+  byte bufferLectura[LONGITUD_BYTES];
+  
   MFRC522::StatusCode estado;
   estado = rfid.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, bloque, &key, &(rfid.uid));
   
@@ -72,15 +80,15 @@ bool leer(char mensaje[LONGITUD_BYTES]){
     Serial.println(rfid.GetStatusCodeName(estado));
     return false;
   }
-  estado = rfid.MIFARE_Read(bloque, buferLectura, &longitud);
+  estado = rfid.MIFARE_Read(bloque, bufferLectura, &longitud);
   if (estado != MFRC522::STATUS_OK){
     Serial.println("Error leyendo bloque");
     Serial.println(rfid.GetStatusCodeName(estado));
     return false;
   }
 
-  for (uint8_t i = 0; i < LONGITUD_BYTES - 2; i++){
-    mensaje[i] = buferLectura[i];
+  for (uint8_t i = 0; i < longitud - 2; i++){
+    mensaje[i] = bufferLectura[i];
   }
   // Ya pueden retirar la tarjeta
 
@@ -95,7 +103,7 @@ bool leer(char mensaje[LONGITUD_BYTES]){
 void initRfid(){
   
   SPI.begin(); //Iniciamos el bus SPI
-  rfid.PDC_Init(); //Iniciamos el rfid
+  rfid.PCD_Init(); //Iniciamos el rfid
   Serial.println();
   Serial.println(F("Reader :"));
   rfid.PCD_DumpVersionToSerial();

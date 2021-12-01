@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import 'bootstrap/dist/css/bootstrap.css';
 import './Home.css';
+
+import { useSubscription, useMqttState } from 'mqtt-react-hooks';
 
 
 
@@ -11,6 +13,22 @@ function Home() {
     const maxAforo = 10;
     const [aforo, setAforo] = useState(0);
     const[color, setColor] = useState('success');
+
+    const { message } = useSubscription('aforo');
+    const { connectionStatus } = useMqttState();
+    console.log(connectionStatus);
+
+    console.log(message);
+    useEffect(() => {
+        console.log(connectionStatus)
+        if (message) {
+            if (message.message === '1') {
+                setAforo(a => a + 1);
+            } else if (message.message === '-1') {
+                setAforo(a => a - 1);
+            }
+        }
+    }, [message, connectionStatus]);
 
     function handleAddClick() {
         if (aforo === maxAforo) {

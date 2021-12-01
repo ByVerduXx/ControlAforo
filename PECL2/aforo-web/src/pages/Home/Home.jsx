@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import 'bootstrap/dist/css/bootstrap.css';
 import './Home.css';
 
-import { useSubscription, useMqttState } from 'mqtt-react-hooks';
+const mqtt = require('mqtt');
+const options = {
+    protocol: 'ws',
+    clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),
+};
 
-
+const client = mqtt.connect('ws://192.168.187.128:9001', options);
+client.on('connect', () => {
+    client.subscribe('aforo');
+});
 
 function Home() {
 
@@ -14,21 +21,14 @@ function Home() {
     const [aforo, setAforo] = useState(0);
     const[color, setColor] = useState('success');
 
-    const { message } = useSubscription('aforo');
-    const { connectionStatus } = useMqttState();
-    console.log(connectionStatus);
-
-    console.log(message);
-    useEffect(() => {
-        console.log(connectionStatus)
-        if (message) {
-            if (message.message === '1') {
-                setAforo(a => a + 1);
-            } else if (message.message === '-1') {
-                setAforo(a => a - 1);
-            }
+    client.on('message', (topic, message) => {
+        if (message.toString() === '1') {
+            setAforo(aforo + 1);
+        } else if (message.toString() === '-1') {
+            setAforo(aforo - 1);
         }
-    }, [message, connectionStatus]);
+
+    });
 
     function handleAddClick() {
         if (aforo === maxAforo) {

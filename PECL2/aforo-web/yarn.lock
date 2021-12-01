@@ -7573,11 +7573,6 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
-mqtt-match@^1.0.2:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/mqtt-match/-/mqtt-match-1.0.3.tgz#13e65197b0556e57c53633e5c0d757722094776f"
-  integrity sha512-nfeAp+chyjVeIvvrgMhQCfDAIVp/zXX8rtxHQwuAWuapqAdFs1F0kIekG445ps3xs/qFPK6l2xRlAyiqqwbmrQ==
-
 mqtt-packet@^6.8.0:
   version "6.10.0"
   resolved "https://registry.yarnpkg.com/mqtt-packet/-/mqtt-packet-6.10.0.tgz#c8b507832c4152e3e511c0efa104ae4a64cd418f"
@@ -7586,21 +7581,6 @@ mqtt-packet@^6.8.0:
     bl "^4.0.2"
     debug "^4.1.1"
     process-nextick-args "^2.0.1"
-
-mqtt-pattern@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/mqtt-pattern/-/mqtt-pattern-1.2.0.tgz#f79a5bb1b567bcd9a69857ba743bc8bef52261d2"
-  integrity sha512-5tvJTrMXcvAWRc4J+YW0pnZOLi20yXFX1R7cjB0291X9aRFPyO+5vbh/kHVwUlNPfJuwijcvrd/AmwDLe1021w==
-  dependencies:
-    mqtt-match "^1.0.2"
-
-mqtt-react-hooks@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/mqtt-react-hooks/-/mqtt-react-hooks-2.0.3.tgz#cc93938462bcc5b318e3b35cd2888935ae135cb3"
-  integrity sha512-cgnZwUgtYgWzJd1U+40AyfSU3t2e7u9rn6g8kH+Y/cVgbjsFhDeLg8Gw9khKtwPxDmkaoJojR0VZI1QIA/vdwg==
-  dependencies:
-    mqtt "^4.2.8"
-    mqtt-pattern "^1.2.0"
 
 mqtt@^4.2.8:
   version "4.2.8"

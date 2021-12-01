@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Connector } from 'mqtt-react-hooks';
+//import { Connector } from 'mqtt-react-hooks';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
@@ -18,7 +18,7 @@ import { UserContextProvider } from './context/UserContext';
 
 function App() {
   return (
-    <Connector brokerUrl="ws://192.168.187.128:9001">
+    //<Connector brokerUrl="ws://192.168.187.128:9001">
       <UserContextProvider>
         <div className="body">
           <Router>
@@ -34,7 +34,7 @@ function App() {
           </Router>
         </div>
       </UserContextProvider>
-    </Connector>
+    //</Connector>
   );
 }
 

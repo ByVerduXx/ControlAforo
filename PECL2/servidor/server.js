@@ -20,7 +20,9 @@ app.use(userMiddleware)
 const mqttClient = new MqttHandler();
 mqttClient.connect();
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+});
 
 app.use('/auth', authRoutes);
 

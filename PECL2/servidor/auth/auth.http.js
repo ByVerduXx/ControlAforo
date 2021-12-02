@@ -46,15 +46,12 @@ const getUserProfile = async (req, res) => {
     if (httpContext.get('user') !== req.params.username) {
         return res.status(401).json({message: 'Unauthorized'})
     }
-    let [err, resp] = await to(usersController.getUserIdFromUserName(req.params.username));
+    const userid = httpContext.get('userid')
+    let [err, resp] = await to(usersController.getUser(userid));
     if (err) {
         return res.status(400).json({message: err})
     }
-    let [err2, resp2] = await to(usersController.getUser(resp));
-    if (err2) {
-        return res.status(400).json({message: err2})
-    }
-    return res.status(200).json(resp2)
+    return res.status(200).json(resp)
 }
 
 const updateUserProfile = async (req, res) => {
@@ -66,11 +63,8 @@ const updateUserProfile = async (req, res) => {
     } else if (!req.body.password || !req.body.age || !req.body.color) {
         return res.status(400).json({message: 'Missing data'})
     }
-    let [err, resp] = await to(usersController.getUserIdFromUserName(req.params.username));
-    if (err) {
-        return res.status(400).json({message: err})
-    }
-    [err, user] = await to(usersController.getUser(resp));
+    const userid = httpContext.get('userid')
+    let [err, user] = await to(usersController.getUser(userid));
     if (err) {
         return res.status(400).json({message: err})
     }
@@ -79,7 +73,7 @@ const updateUserProfile = async (req, res) => {
     } else {
         password = user.password
     }
-    let [err2, resp2] = await to(usersController.updateUser(resp, req.params.username, password, req.body.age, req.body.color));
+    let [err2, resp2] = await to(usersController.updateUser(userid, req.params.username, password, req.body.age, req.body.color));
     if (err2) {
         return res.status(400).json({message: err2})
     }
@@ -90,15 +84,12 @@ const deleteUserProfile = async (req, res) => {
     if (httpContext.get('user') !== req.params.username) {
         return res.status(401).json({message: 'Unauthorized'})
     }
-    let [err, resp] = await to(usersController.getUserIdFromUserName(req.params.username));
+    const userid = httpContext.get('userid')
+    let [err, resp] = await to(usersController.deleteUserProfile(userid));
     if (err) {
         return res.status(400).json({message: err})
     }
-    let [err2, resp2] = await to(usersController.deleteUserProfile(resp));
-    if (err2) {
-        return res.status(400).json({message: err2})
-    }
-    return res.status(200).json({message: resp2})
+    return res.status(200).json({message: resp})
 }
 
 exports.loginUser = loginUser;

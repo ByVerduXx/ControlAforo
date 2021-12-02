@@ -1,0 +1,11 @@
+1. Obtener el id de usuario teniendo su username
+2. Obtener todos los datos de un usuario dado su id
+2.1. Obtener username y contraseña de un usuario dado el id
+3. Insertar nuevo usuario
+4. Obtener todos los usuarios (SELECT * FROM usuarios)
+5. Cambiar datos del usuario dado el id
+6. Borrar usuario dado el id
+7. Obtener el aforo maximo de una oficina dada su id
+8. Obtener el aforo actual de la sala dada la id de la sala
+9. Obtener todas las personas (sin repetir, si una persona coincidio mas de un dia que solo la devuelva una vez) que coincidieron en la sala con una persona dada su id
+	los ultimos 7 dias. (Esta es la complicada)

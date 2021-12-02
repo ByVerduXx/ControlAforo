@@ -23,16 +23,12 @@ class MqttHandler {
         });
 
         // mqtt subscriptions
-        this.mqttClient.subscribe('test2', { qos: 0 });
+        this.mqttClient.subscribe('entrada', { qos: 0 });
 
         // When a message arrives, console.log it
         this.mqttClient.on('message', function (topic, message) {
             console.log(topic.toString());
             console.log(message.toString());
-        });
-
-        this.mqttClient.on('close', () => {
-            console.log(`mqtt client disconnected`);
         });
     }
 

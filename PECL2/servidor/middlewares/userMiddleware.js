@@ -12,11 +12,13 @@ const userMiddleware = (req, res, next) => {
                 });
             } else {
                 httpContext.set('user', decoded.username);
+                httpContext.set('userid', decoded.userid);
                 next();
             }
         });
     } else {
         httpContext.set('user', null);
+        httpContext.set('userid', null);
         next()
     }
 

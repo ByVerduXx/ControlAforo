@@ -14,8 +14,11 @@
 7. Obtener el aforo maximo de una oficina dada su id
 	SELECT aforo FROM oficinas WHERE id_oficina = ?;
 8. Obtener el aforo actual de la sala dada la id de la sala
-	SELECT aforo FROM salas WHERE id_sala = ?;
+	
 9. Obtener todas las personas (sin repetir, si una persona coincidio mas de un dia que solo la devuelva una vez) que coincidieron en la sala con una persona dada su id
 	los ultimos 7 dias. (Esta es la complicada)
-
+	
+	SELECT distinct(id_usuario) FROM usuarios INNER JOIN log ON usuarios.id_usuario = log.id_usuario GROUP BY log.id_usuario
+		WHERE entrada IN (SELECT entrada FROM log WHERE ((id_usuario = ?) AND (entrada > SELECT DATE_SUB(NOW(),INTERVAL 7 DAY))))
+	
 

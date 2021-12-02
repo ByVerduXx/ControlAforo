@@ -1,11 +1,21 @@
 1. Obtener el id de usuario teniendo su username
+	SELECT id_usuario FROM usuarios WHERE username = ?;
 2. Obtener todos los datos de un usuario dado su id
+	SELECT * FROM usuarios WHERE id_usuario = ?;
 2.1. Obtener username y contraseña de un usuario dado el id
+	SELECT username,contrasena FROM usuarios WHERE id_usuario = ?;
 3. Insertar nuevo usuario
+	INSERT INTO usuarios VALUES(?,?,?,?,?,?,?,?)
 4. Obtener todos los usuarios (SELECT * FROM usuarios)
 5. Cambiar datos del usuario dado el id
+	SET ? = ? WHERE id_usuario = ?;
 6. Borrar usuario dado el id
+	DELETE FROM usuarios WHERE id_usuario = ?;
 7. Obtener el aforo maximo de una oficina dada su id
+	SELECT aforo FROM oficinas WHERE id_oficina = ?;
 8. Obtener el aforo actual de la sala dada la id de la sala
+	SELECT aforo FROM salas WHERE id_sala = ?;
 9. Obtener todas las personas (sin repetir, si una persona coincidio mas de un dia que solo la devuelva una vez) que coincidieron en la sala con una persona dada su id
 	los ultimos 7 dias. (Esta es la complicada)
+
+

@@ -1,35 +1,57 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import 'bootstrap/dist/css/bootstrap.css';
 import './Home.css';
+import mqtt from 'mqtt';
 
-const mqtt = require('mqtt');
-const options = {
-    protocol: 'ws',
-    clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),
-};
-
-const client = mqtt.connect('ws://192.168.187.128:9001', options);
-client.on('connect', () => {
-    client.subscribe('aforo');
-});
 
 function Home() {
 
     const maxAforo = 10;
     const [aforo, setAforo] = useState(0);
+    const [creciente, setCreciente] = useState(false);
     const[color, setColor] = useState('success');
 
-    client.on('message', (topic, message) => {
-        if (message.toString() === '1') {
-            setAforo(aforo + 1);
-        } else if (message.toString() === '-1') {
-            setAforo(aforo - 1);
+    useEffect(() => {
+        const options = {
+            protocol: 'ws',
+            clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),
+        };
+        
+        const client = mqtt.connect('ws://192.168.187.128:9001', options);
+        client.on('connect', () => {
+            client.subscribe('aforo');
+        });
+        client.on('message', (topic, message) => {
+            if (message.toString() === '1') {
+                setAforo(a => a + 1);
+                setCreciente(true);
+            } else if (message.toString() === '-1') {
+                setAforo(a => a - 1);
+                setCreciente(false);
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        const porcentaje = (aforo * 100 / maxAforo)
+        if (creciente) {
+        if (porcentaje > 50 && porcentaje < 80) {
+            setColor('warning')
+        } else if (porcentaje > 80) {
+            setColor('danger')
+        }
+        } else {
+            if (porcentaje <= 80 && porcentaje > 50) {
+                setColor('warning')
+            } else if (porcentaje <= 50) {
+                setColor('success')
+            }
         }
 
-    });
-
+    }, [aforo, creciente]);
+    
     function handleAddClick() {
         if (aforo === maxAforo) {
             alert('No puede superarse el aforo')

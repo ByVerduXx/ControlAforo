@@ -29,6 +29,7 @@ class MqttHandler {
         this.mqttClient.on('message', function (topic, message) {
             console.log(topic.toString());
             console.log(message.toString());
+            publish('salida', message + 1);
         });
     }
 

@@ -16,6 +16,10 @@ function Profile() {
     const [disabled, setDisabled] = useState(true)
 
     useEffect(() => {
+        document.title = 'CdA | Perfil'
+    }, [])
+
+    useEffect(() => {
         if (!isLogged) return history.push('/login')
         getUserData(username)
     }, [isLogged, history, getUserData, username])

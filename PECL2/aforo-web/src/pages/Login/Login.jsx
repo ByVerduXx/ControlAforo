@@ -17,6 +17,10 @@ function Login() {
     const {isLoginLoading, hasLoginError, login, isLogged} = useUser();
 
     useEffect(() => {
+        document.title = 'CdA | Login'
+    }, [])
+
+    useEffect(() => {
         if (isLogged) {
             history.push('/')
         }

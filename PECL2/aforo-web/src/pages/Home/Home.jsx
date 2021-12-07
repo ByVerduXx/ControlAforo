@@ -14,6 +14,10 @@ function Home() {
     const[color, setColor] = useState('success');
 
     useEffect(() => {
+        document.title = "Control de Aforo";
+    }, []);
+
+    useEffect(() => {
         const options = {
             protocol: 'ws',
             clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './Notify.css'
 import useUser from '../../hooks/useUser'
 import {useHistory} from 'react-router-dom'
@@ -9,6 +9,10 @@ function Notify() {
 
     const {isLogged} = useUser()
     let history = useHistory()
+
+    useEffect(() => {
+        document.title = 'CdA | Notificar'
+    }, [])
 
     const handleClick = () => {
         if (!isLogged) return history.push('/login')

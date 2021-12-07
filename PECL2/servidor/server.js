@@ -1,10 +1,11 @@
 const express = require('express');
 const httpContext = require('express-http-context');
 const cors = require('cors');
-const MqttHandler = require('./mqtt/mqtt_handler');
+const { client } = require('./mqtt/mqtt_handler');
 //routes
 const authRoutes = require('./auth/auth.router').router;
 const userMiddleware =  require('./middlewares/userMiddleware').userMiddleware;
+
 
 const app = express();
 
@@ -17,11 +18,10 @@ app.use(cors());
 app.use(httpContext.middleware);
 app.use(userMiddleware)
 
-const mqttClient = new MqttHandler();
-mqttClient.connect();
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
+    client.publish('test', 'Hello World!');
 });
 
 app.use('/auth', authRoutes);

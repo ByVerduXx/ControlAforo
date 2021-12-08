@@ -3,7 +3,7 @@ const httpContext = require('express-http-context');
 const cors = require('cors');
 const { client } = require('./mqtt/mqtt_handler');
 //routes
-const authRoutes = require('./auth/auth.router').router;
+const usersRoutes = require('./users/auth.router').router;
 const userMiddleware =  require('./middlewares/userMiddleware').userMiddleware;
 
 const db = require('./database/dbconnection');
@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use('/auth', authRoutes);
+app.use('/users', usersRoutes);
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
 

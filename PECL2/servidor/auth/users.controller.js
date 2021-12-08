@@ -1,118 +1,99 @@
 const uuid = require('uuid');
 const crypto = require('../tools/crypto');
+const {to} = require('../tools/to')
+
+const db = require('../database/dbconnection') 
 
 
-let userDatabase = {}
-
-const cleanUpUsers = () => {
+const registerUser = (username, password, dni, email, telefono, nombre, direccion) => {
     return new Promise((resolve, reject) => {
-        userDatabase = {}
-        resolve()
-    })
-
-}
-
-const registerUser = (username, password, age, color) => {
-    return new Promise((resolve, reject) => {
-        getUserIdFromUserName(username).then(() => {
+        db.getUserIdFromUserName(username).then(() => {
             return reject('El usuario ya existe')
-        }).catch(() => {
+        }).catch(async () => {
             let hashedPassword = crypto.hashPassword(password)
             let userid = uuid.v4()
-            let newUser = {
-                username: username,
-                password: hashedPassword,
-                age: age,
-                color: color,
+            let [err, data] = await to(db.insertUser(userid, username, hashedPassword, dni, email, telefono, nombre, direccion));
+            if (err) {
+                return reject(err)
+            } else {
+                return resolve(`User ${username} created successfully`)
             }
-            userDatabase[userid] = newUser
-            return resolve(`User ${username} created successfully`)
+            
         })
     })
 }
 
 const getUser = (userid) => {
     return new Promise((resolve, reject) => {
-        if (userDatabase[userid]) {
-            return resolve(userDatabase[userid])
-        } else {
-            return reject()
-        }
-    })
-}
-
-const getUserIdFromUserName = (username) => {
-    return new Promise((resolve, reject) => {
-        for (let userid in userDatabase) {
-            if (userDatabase[userid].username === username) {
-                return resolve(userid)
+        db.getUserProfile(userid).then((user) => {
+            if (user) {
+                return resolve(user)
+            } else {
+                return reject('User not found')
             }
-        }
-        return reject('No user found')
+        }).catch((err) => {
+            return reject(err)
+        })
     })
 }
 
 const checkUserCredentials = (username, password) => {
     return new Promise(async (resolve, reject) => {
-        getUserIdFromUserName(username)
+        db.getUserIdFromUserName(username)
             .then(async (userid) => {
-                let user = await getUser(userid)
-                if (user) {
-                    crypto.comparePassword(password, user.password, (err, result) => {
-                        if (err) {
+                let [err,pass] = await to(db.getPassword(userid))
+                if (err) {
+                    return reject(err)
+                } else {
+                    crypto.comparePassword(password, pass, (err, result) => {
+                        if (err || !result) {
                             return reject(err)
                         } else {
-                            return resolve(result)
+                            return resolve(userid)
                         }
                     })
-                } else {
-                    return reject('No user found')
                 }
             })
-            .catch(err => {
-                reject(err)
+            .catch((err) => {
+                return reject(err)
             })
     })
 }
 
 const getAllUsers = () => {
     return new Promise((resolve, reject) => {
-        resolve(userDatabase)
+        db.getUsers().then((users) => {
+            //console.log(users)
+            return resolve(users)
+        }).catch((err) => {
+            return reject(err)
+        })
     })
 }
 
-const updateUser = (userid, username, password, age, color) => {
+const updateUser = (userid, username, password, dni, email, telefono, nombre, direccion) => {
     return new Promise((resolve, reject) => {
-        if (userDatabase[userid]) {
-            userDatabase[userid] = { username: username, password: password, age: age, color: color }
-            resolve('User updated successfully')
-        } else {
-            reject('No user found')
-        }
+        db.updateUserProfile(userid, username, password, dni, email, telefono, nombre, direccion).then(() => {
+            return resolve('User updated successfully')
+        }).catch((err) => {
+            return reject(err)
+        })
     })
 }
 
 const deleteUserProfile = (userid) => {
     return new Promise((resolve, reject) => {
-        if (userDatabase[userid]) {
-            delete userDatabase[userid]
-            resolve('User deleted successfully')
-        } else {
-            reject('No user found')
-        }
+        db.deleteUserProfile(userid).then(() => {
+            return resolve('User deleted successfully')
+        }).catch((err) => {
+            return reject(err)
+        })
     })
 }
 
 
-registerUser('Verdu', 'verdu1234', '20', 'Rojo')
-registerUser('Juan', 'juan1234', '20', 'Azul')
-registerUser('Pedro', 'pedro1234', '20', 'Verde')
-
-
-exports.cleanUpUsers = cleanUpUsers
 exports.registerUser = registerUser
 exports.getUser = getUser
-exports.getUserIdFromUserName = getUserIdFromUserName
 exports.checkUserCredentials = checkUserCredentials
 exports.getAllUsers = getAllUsers
 exports.updateUser = updateUser

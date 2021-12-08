@@ -6,6 +6,7 @@ const { client } = require('./mqtt/mqtt_handler');
 const authRoutes = require('./auth/auth.router').router;
 const userMiddleware =  require('./middlewares/userMiddleware').userMiddleware;
 
+const db = require('./database/dbconnection');
 
 const app = express();
 
@@ -21,7 +22,11 @@ app.use(userMiddleware)
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
-    client.publish('test', 'Hello World!');
+    db.getUserIdFromUserName('Prueba').then(row => {
+        console.log(row);
+    }).catch(() => {
+        console.log('error');
+    });
 });
 
 app.use('/auth', authRoutes);

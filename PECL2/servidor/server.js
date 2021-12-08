@@ -3,7 +3,7 @@ const httpContext = require('express-http-context');
 const cors = require('cors');
 const { client } = require('./mqtt/mqtt_handler');
 //routes
-const usersRoutes = require('./users/auth.router').router;
+const usersRoutes = require('./users/users.router').router;
 const userMiddleware =  require('./middlewares/userMiddleware').userMiddleware;
 
 const db = require('./database/dbconnection');

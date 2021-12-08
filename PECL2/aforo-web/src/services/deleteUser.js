@@ -1,7 +1,7 @@
 const ENDPOINT = 'http://localhost:3001';
 
 export default function getUserData(username, jwt) {
-    return fetch(`${ENDPOINT}/auth/profile/${username}`, {
+    return fetch(`${ENDPOINT}/users/profile/${username}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `JWT ${jwt}`

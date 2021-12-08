@@ -1,7 +1,7 @@
 const ENDPOINT = 'http://localhost:3001';
 
 export default function login({username, password}) {
-    return fetch(`${ENDPOINT}/auth/login`, {
+    return fetch(`${ENDPOINT}/users/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

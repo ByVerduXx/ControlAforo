@@ -28,7 +28,7 @@ function RegisterForm() {
     return (
         <>
             <Formik
-                initialValues={{ username: '', password: '', age: '', color: '' }}
+                initialValues={{ username: '', password: '', dni: '', email: '', telefono: '', nombre: '', direccion: '' }}
                 /*validate={values => {
                     const errors = {};
                     if (!values.username || !values.password || !values.age || !values.color) {
@@ -36,7 +36,7 @@ function RegisterForm() {
                     }
                     return errors;
                 }}*/
-                onSubmit={(values, { setFieldError }) => {
+                onSubmit={async (values, { setFieldError }) => {
                     return registerService(values)
                         .then(() => {
                             setRegistered(true)
@@ -57,8 +57,11 @@ function RegisterForm() {
                             <form className="register-form" onSubmit={handleSubmit}>
                                 <Input nombre="username" onChange={handleChange} placeholder="Username" />
                                 <Input nombre="password" type="password" onChange={handleChange} placeholder="Password" />
-                                <Input nombre="age" onChange={handleChange} placeholder="Age" />
-                                <Input nombre="color" onChange={handleChange} placeholder="Color" />
+                                <Input nombre="dni" onChange={handleChange} placeholder="DNI" />
+                                <Input nombre="email" onChange={handleChange} placeholder="Email" />
+                                <Input nombre="telefono" onChange={handleChange} placeholder="Telefono" />
+                                <Input nombre="nombre" onChange={handleChange} placeholder="Nombre" />
+                                <Input nombre="direccion" onChange={handleChange} placeholder="Direccion" />
                                 <Button classname="boton-registrar" disabled={isSubmitting}>
                                     Registrarse
                                 </Button>

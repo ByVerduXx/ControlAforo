@@ -1,7 +1,7 @@
 const ENDPOINT = 'http://localhost:3001';
 
 export default function setUserData(username, jwt, userData) {
-    return fetch(`${ENDPOINT}/auth/profile/${username}`, {
+    return fetch(`${ENDPOINT}/users/profile/${username}`, {
         method: 'PUT',
         headers: {
             'Authorization': `JWT ${jwt}`,

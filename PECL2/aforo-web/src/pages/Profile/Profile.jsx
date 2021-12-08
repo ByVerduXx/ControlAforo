@@ -12,7 +12,7 @@ function Profile() {
         hasDeleteUserError, isDeleteUserLoading, deleteUserMessage, logout} = useUser()
     const history = useHistory()
     const {username} = useParams()
-    const [modifiedData, setModifiedData] = useState({password: '', age: '', color: ''})
+    const [modifiedData, setModifiedData] = useState({password: '', dni: '', email: '', telefono: '', nombre: '', direccion: ''})
     const [disabled, setDisabled] = useState(true)
 
     useEffect(() => {
@@ -72,14 +72,22 @@ function Profile() {
                     <Input id='username' classname="desactivado" nombre="username" valor={userData.username} disabled />
                     <label htmlFor="password">Password</label>
                     <Input id='password' classname={disabled ? 'desactivado' : ''} nombre="password" type='password' valor='' disabled={disabled} onChange={handleChange} />
-                    <label htmlFor="age">Edad</label>
-                    <Input id='age' classname={disabled ? 'desactivado' : ''} nombre="age" valor={modifiedData.age} disabled={disabled} onChange={handleChange} />
-                    <label htmlFor="color">Color</label>
-                    <Input id='color' classname={disabled ? 'desactivado' : ''} nombre="color" valor={modifiedData.color} disabled={disabled} onChange={handleChange} />
-                    <Button classname="azul" disabled={!disabled} onClick={handleModifyClick}>Modificar</Button>
-                    <Button classname="rojo" disabled={disabled} onClick={handleCancelClick} >Cancelar</Button>
-                    <Button type="submit" classname="verde" disabled={disabled}>Enviar</Button>
-                    <Button onClick={handleDeleteClick}>Borrar Cuenta</Button>
+                    <label htmlFor="dni">DNI</label>
+                    <Input id='dni' classname="desactivado" nombre="dni" valor={userData.dni} disabled />
+                    <label htmlFor="email">Email</label>
+                    <Input id='email' classname={disabled ? 'desactivado' : ''} nombre="email" valor={userData.email} disabled={disabled} onChange={handleChange} />
+                    <label htmlFor="telefono">Teléfono</label>
+                    <Input id='telefono' classname={disabled ? 'desactivado' : ''} nombre="telefono" valor={userData.telefono} disabled={disabled} onChange={handleChange} />
+                    <label htmlFor="nombre">Nombre</label>
+                    <Input id='nombre' classname={disabled ? 'desactivado' : ''} nombre="nombre" valor={userData.nombre} disabled={disabled} onChange={handleChange} />
+                    <label htmlFor="direccion">Dirección</label>
+                    <Input id='direccion' classname={disabled ? 'desactivado' : ''} nombre="direccion" valor={userData.direccion} disabled={disabled} onChange={handleChange} />
+                    <div className="botonera">
+                        <Button classname="azul" disabled={!disabled} onClick={handleModifyClick}>Modificar</Button>
+                        <Button classname="rojo" disabled={disabled} onClick={handleCancelClick} >Cancelar</Button>
+                        <Button type="submit" classname="verde" disabled={disabled}>Enviar</Button>
+                        <Button onClick={handleDeleteClick}>Borrar Cuenta</Button>
+                    </div>
                 </form>
             }
             {isUpdateUserLoading &&

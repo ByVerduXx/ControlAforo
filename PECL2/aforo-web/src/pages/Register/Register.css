@@ -21,6 +21,13 @@
 .register-form {
     top: 40%;
     position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 1rem;
+    width: 50%;
+    
 }
 .register-error {
     text-align: center;
@@ -41,4 +48,13 @@
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+/*Make the register-form responsive for mobile*/
+@media screen and (max-width: 960px) {
+    .register-form {
+        grid-template-columns: 1fr;
+        grid-gap: unset;
+        width: 80%;
+    }
 }

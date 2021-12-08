@@ -22,7 +22,7 @@
     position: inherit;
 }
 .perfil-form {
-    top: 40%;
+    top: 35%;
     position: absolute;
     width: 50%;
 }
@@ -39,4 +39,27 @@
     top: 25%;
     font-size: 1.5rem;
     color: green
+}
+.botonera {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/*Make perfil-form responsive for mobile*/
+@media screen and (max-width: 960px) {
+    .perfil-form {
+        width: 80%;
+    }
+}
+
+/*Make botonera responsive for mobile*/
+@media screen and (max-width: 1450px) {
+    .botonera {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+        justify-content: center;
+        align-items: center;
+    }
 }

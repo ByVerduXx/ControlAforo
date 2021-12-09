@@ -30,18 +30,24 @@ direcciones.close
 
 def genera_dni_aleatorio():
     letras_resto_division = ['T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E']
-    parte_numerica = random.randint(0, 99999999)
-    letra = letras_resto_division[parte_numerica%23]
-    dni = str(parte_numerica) + letra
-    return dni
+    digitos = 8
+    cifras = ''
+    while (digitos>0):
+        cifras += str(random.randint(0, 9))
+        digitos -= 1
+    letra = letras_resto_division[int(cifras)%23]
+    dni = cifras + letra
+    return str(dni)
 
 def genera_numero_telefono():
-    inicio = random.randint(6,7)
-    final = random.randint(10000000, 99999999)
-    numero = str(inicio) + str(final)
-    return numero
+    numero = str(random.randint(6,7))
+    digitos = 8
+    while (digitos > 0):
+        numero += str(random.randint(0, 9))
+        digitos -= 1
+    return str(numero)
 
-def crear_usuario():
+def crear_usuario(ids):
     numero_extraccion = random.randint(0, len(listaNombres)-1)
     nombre = str(listaNombres.pop(numero_extraccion))
     
@@ -54,25 +60,25 @@ def crear_usuario():
     username = nombre + apellido1 + str(numero_extraccion)
     password = nombre + apellido1 + str(numero_extraccion) + str(numero_extraccion2) +str(numero_extraccion3)
     dni = genera_dni_aleatorio()
-    email = nombre + apellido1 + '@gmail.com'
+    email = (nombre + apellido1 + '@gmail.com').lower()
     telefono = genera_numero_telefono()
     nombre_completo = str(nombre + ' ' + apellido1 + ' ' + apellido2)
     
     numero_extraccion4 = random.randint(0, len(listaDirecciones)-1)
     direccion = str(listaDirecciones[numero_extraccion4])
 
-    ID = str(listaRfids.pop(0))
-
-    usuario = [ID, username, password, dni, email, telefono, nombre_completo, direccion]
+    usuario = ["'"+ids+"'", "'"+username+"'", "'"+password+"'", "'"+dni+"'", "'"+email+"'", "'"+telefono+"'", "'"+nombre_completo+"'", "'"+direccion+"'"]
 
     return usuario
 
 def crear_lista_usuarios(numero, lista):
+    ids = 1
     while (numero > 0):
-        usuario = crear_usuario()
+        usuario = crear_usuario(str(ids))
         lista.append(usuario)
         print (usuario)
         numero -=1
+        ids +=1
     return lista
 
 def escribir_usuarios(lista):
@@ -81,7 +87,6 @@ def escribir_usuarios(lista):
     for user in lista:
         for atributo in user:
             salida.write(str(atributo))
-            print(user.index(atributo))
             if (user.index(atributo) != 7):
                 salida.write(', ')
         salida.write('\n')

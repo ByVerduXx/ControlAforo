@@ -1,6 +1,7 @@
 insert into usuarios values ('1','Verdu','verdu1234','09102213K','verdu@gmail.com','888882233', 'Daniel Verduras Gallego', 'Calle xd, Madrid');
 select * from usuarios;
 insert into oficinas values('1',10);
+UPDATE oficinas set aforo = '1' where id_oficina = '1';
 select * from oficinas;
 insert into rfid values('4C32A3D5','1','1');
 select * from rfid;

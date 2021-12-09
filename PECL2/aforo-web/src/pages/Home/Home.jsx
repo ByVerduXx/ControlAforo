@@ -23,7 +23,7 @@ function Home() {
             clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),
         };
         
-        const client = mqtt.connect('ws://192.168.187.128:9001', options);
+        const client = mqtt.connect(`ws://${process.env.REACT_APP_MQTT_URL}:9001`, options);
         client.on('connect', () => {
             client.subscribe('aforo');
         });

@@ -1,4 +1,4 @@
-const ENDPOINT = 'http://localhost:3001';
+const ENDPOINT = process.env.REACT_APP_API_URL;
 
 export default function login({username, password}) {
     return fetch(`${ENDPOINT}/users/login`, {

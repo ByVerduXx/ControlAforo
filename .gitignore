@@ -1,2 +1,4 @@
 /PECL2/aforo-web/node_modules
 /PECL2/servidor/node_modules
+/PECL2/aforo-web/.env
+/PECL2/servidor/.env

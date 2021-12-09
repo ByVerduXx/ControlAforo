@@ -1,4 +1,4 @@
-const ENDPOINT = 'http://localhost:3001';
+const ENDPOINT = process.env.REACT_APP_API_URL;
 
 export default function register({username, password, dni, email, telefono, nombre, direccion}) {
     return fetch(`${ENDPOINT}/users/register`, {

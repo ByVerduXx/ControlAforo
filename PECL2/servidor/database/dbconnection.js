@@ -1,6 +1,6 @@
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
-    host: '192.168.187.128',
+    host: process.env.DATABASE_IP,
     user: 'ubicomp',
     password: 'ubicomp',
     database: 'controlaforo',

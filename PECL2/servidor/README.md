@@ -14,6 +14,14 @@ En caso de querer instalar también las dependencias para el testing, ejecutarem
 ```bash
 npm install --dev
 ```
+## Variables de entorno
+Para poder ejecutar el servidor, deberemos configurar las variables de entorno. Para ello, deberemos crear un archivo `.env` en la carpeta del servidor. Una vez creado, deberemos configurar las variables de entorno siguientes:
+```bash	
+DATABASE_IP=ip
+MQTT_IP=ip
+```
+Siendo `DATABASE_IP` la IP del servidor de base de datos y `MQTT_IP` la IP del servidor MQTT.
+
 ## Puesta en marcha
 Para iniciar el proyecto ejecutamos:
 

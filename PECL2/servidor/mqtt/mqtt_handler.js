@@ -1,5 +1,5 @@
 var mqtt = require('mqtt');
-var client = mqtt.connect('mqtt://192.168.187.128:1883');
+var client = mqtt.connect(`mqtt://${process.env.MQTT_IP}:1883`);
 
 client.on('connect', function () {
     if (client.connected) {

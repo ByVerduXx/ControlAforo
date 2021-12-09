@@ -1,5 +1,6 @@
 var mqtt = require('mqtt');
 var client = mqtt.connect(`mqtt://${process.env.MQTT_IP}:1883`);
+const {cardHandler} = require('./cards_mqtt')
 
 client.on('connect', function () {
     if (client.connected) {
@@ -9,7 +10,7 @@ client.on('connect', function () {
 });
 
 client.on('message', function (topic, message) {
-    console.log(message.toString());
+    cardHandler(message.toString(), client)
 });
 
 exports.client = client;

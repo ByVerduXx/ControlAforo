@@ -107,6 +107,72 @@ function deleteUserProfile(id_usuario) {
     });
 }
 
+function getCard(id_rfid) {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM rfid WHERE id_rfid = ?';
+        pool.query(sql, [id_rfid]).then(rows => {
+            resolve(rows);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
+function isUserIn(id_usuario) {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM log WHERE id_usuario = ? and salida is null';
+        pool.query(sql, [id_usuario]).then(rows => {
+            resolve(rows.length > 0);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
+function takeUserOut(id_usuario, salida) {
+    return new Promise((resolve, reject) => {
+        const sql = 'UPDATE log SET salida = ? WHERE id_usuario = ? and salida is null';
+        pool.query(sql, [salida, id_usuario]).then(rows => {
+            resolve();
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
+function setUserIn(id_usuario, entrada) {
+    return new Promise((resolve, reject) => {
+        const sql = 'INSERT INTO log (id_usuario, entrada) VALUES (?, ?)';
+        pool.query(sql, [id_usuario, entrada]).then(rows => {
+            resolve();
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
+function getOfficeCapacityFromRfid(id_rfid) {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM oficinas WHERE id_oficina = (SELECT id_oficina FROM rfid WHERE id_rfid = ?)';
+        pool.query(sql, [id_rfid]).then(rows => {
+            if (rows.length > 0) {
+                const aforo = rows[0].aforo;
+                const id_oficina = rows[0].id_oficina;
+                const sql2 = 'SELECT count(*) AS aforo_actual FROM log WHERE id_usuario IN (SELECT id_usuario FROM rfid WHERE id_oficina = ?) and salida is null;'
+                pool.query(sql2, [id_oficina]).then(rows2 => {
+                    resolve(aforo - rows2[0].aforo_actual);
+                }).catch(err => {
+                    reject(err);
+                });
+            } else {
+                reject('No existe el rfid');
+            }
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 module.exports = {
     getTest,
     getUserIdFromUserName,
@@ -115,5 +181,10 @@ module.exports = {
     getUsers,
     getUserProfile,
     updateUserProfile,
-    deleteUserProfile
+    deleteUserProfile,
+    getCard,
+    isUserIn,
+    takeUserOut,
+    getOfficeCapacityFromRfid,
+    setUserIn
 };

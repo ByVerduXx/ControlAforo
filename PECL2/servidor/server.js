@@ -22,11 +22,6 @@ app.use(userMiddleware)
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
-    db.getUserIdFromUserName('Prueba').then(row => {
-        console.log(row);
-    }).catch(() => {
-        console.log('error');
-    });
 });
 
 app.use('/users', usersRoutes);

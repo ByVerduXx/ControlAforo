@@ -1,32 +1,39 @@
 import React, { useState, useEffect } from 'react'
-import Button from 'react-bootstrap/Button';
+//import Button from 'react-bootstrap/Button';
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import 'bootstrap/dist/css/bootstrap.css';
 import './Home.css';
 import mqtt from 'mqtt';
+import useAforo from '../../hooks/useAforo';
+
+const options = {
+    protocol: 'ws',
+    clientId: 'mqttjs_' + Math.random().toString(6),
+};
+
+const client = mqtt.connect(`ws://${process.env.REACT_APP_MQTT_URL}:9001`, options);
+client.on('connect', () => {
+    client.subscribe('aforo');
+});
 
 
 function Home() {
 
     const maxAforo = 10;
-    const [aforo, setAforo] = useState(0);
     const [creciente, setCreciente] = useState(false);
-    const[color, setColor] = useState('success');
+    const [color, setColor] = useState('success');
+    const [oficina, setOficina] = useState('1');
+    const { aforo, getAforoOficina, setAforo } = useAforo();
 
     useEffect(() => {
         document.title = "Control de Aforo";
     }, []);
 
     useEffect(() => {
-        const options = {
-            protocol: 'ws',
-            clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),
-        };
-        
-        const client = mqtt.connect(`ws://${process.env.REACT_APP_MQTT_URL}:9001`, options);
-        client.on('connect', () => {
-            client.subscribe('aforo');
-        });
+        getAforoOficina(oficina);
+    }, [oficina, getAforoOficina]);
+
+    useEffect(() => {
         client.on('message', (topic, message) => {
             if (message.toString() === '1') {
                 setAforo(a => a + 1);
@@ -36,7 +43,7 @@ function Home() {
                 setCreciente(false);
             }
         });
-    }, []);
+    }, [setAforo]);
 
     useEffect(() => {
         const porcentaje = (aforo * 100 / maxAforo)
@@ -56,7 +63,7 @@ function Home() {
 
     }, [aforo, creciente]);
     
-    function handleAddClick() {
+    /* function handleAddClick() {
         if (aforo === maxAforo) {
             alert('No puede superarse el aforo')
         } else {
@@ -81,7 +88,7 @@ function Home() {
                 setColor('success')
             }
         }
-    }
+    } */
 
     return (
         <div className="home">
@@ -89,14 +96,14 @@ function Home() {
                 <p className="counter">{aforo}</p>
             </div>
             <ProgressBar variant={color} animated now={aforo * 100 / maxAforo} />
-            <div className="button-container">
+            {/* <div className="button-container">
                 <div className="button">
                     <Button variant="primary" size="lg" onClick={handleAddClick}>Sumar</Button>
                 </div>
                 <div className="button">
                     <Button variant="danger" size="lg" onClick={handleSubClick}>Restar</Button>
                 </div>
-            </div>
+            </div> */}
             
         </div>
     )

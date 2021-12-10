@@ -173,6 +173,17 @@ function getOfficeCapacityFromRfid(id_rfid) {
     });
 }
 
+function getActualOfficeCapacity(id_oficina) {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT count(*) AS aforo_actual FROM log WHERE id_usuario IN (SELECT id_usuario FROM rfid WHERE id_oficina = ?) and salida is null;'
+        pool.query(sql, [id_oficina]).then(rows => {
+            resolve(rows[0].aforo_actual);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 module.exports = {
     getTest,
     getUserIdFromUserName,
@@ -186,5 +197,6 @@ module.exports = {
     isUserIn,
     takeUserOut,
     getOfficeCapacityFromRfid,
-    setUserIn
+    setUserIn,
+    getActualOfficeCapacity
 };

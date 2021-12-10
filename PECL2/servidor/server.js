@@ -28,6 +28,15 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 });
 
+app.get('/oficina/:id_oficina', (req, res) => {
+    const id_oficina = req.params.id_oficina;
+    db.getActualOfficeCapacity(id_oficina).then(result => {
+        res.status(200).json({aforo: result});
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+})
+
 app.use('/users', usersRoutes);
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));

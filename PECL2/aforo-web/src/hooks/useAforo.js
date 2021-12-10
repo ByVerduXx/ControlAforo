@@ -7,7 +7,14 @@ export default function useAforo () {
 
     const getAforoOficina = useCallback((id_oficina) => {
         getAforo(id_oficina).then(response => {
-            setAforo(response.aforo);
+            if (!response) {
+                setAforo(0);
+            }
+            if (!response.aforo) {
+                setAforo(0);
+            } else {
+                setAforo(response.aforo);
+            }
         });
     }, []);
 

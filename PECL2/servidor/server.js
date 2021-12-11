@@ -28,6 +28,14 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 });
 
+app.get('/oficina', (req, res) => {
+    db.getOficinas().then(data => {
+        res.status(200).json(data);
+    }).catch(err => {
+        res.status(500).json(err);
+    });
+})
+
 app.get('/oficina/:id_oficina', (req, res) => {
     const id_oficina = req.params.id_oficina;
     db.getActualOfficeCapacity(id_oficina).then(result => {

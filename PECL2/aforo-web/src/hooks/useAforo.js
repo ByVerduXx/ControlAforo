@@ -10,7 +10,7 @@ export default function useAforo () {
             if (!response) {
                 setAforo(0);
             }
-            if (!response.aforo) {
+            else if (!response.aforo) {
                 setAforo(0);
             } else {
                 setAforo(response.aforo);

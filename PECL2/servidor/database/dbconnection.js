@@ -184,6 +184,17 @@ function getActualOfficeCapacity(id_oficina) {
     });
 }
 
+function getOficinas() {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT id_oficina FROM oficinas';
+        pool.query(sql).then(rows => {
+            resolve(rows);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 module.exports = {
     getTest,
     getUserIdFromUserName,
@@ -198,5 +209,6 @@ module.exports = {
     takeUserOut,
     getOfficeCapacityFromRfid,
     setUserIn,
-    getActualOfficeCapacity
+    getActualOfficeCapacity,
+    getOficinas,
 };

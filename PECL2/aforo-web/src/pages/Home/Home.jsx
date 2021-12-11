@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-//import Button from 'react-bootstrap/Button';
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import 'bootstrap/dist/css/bootstrap.css';
 import './Home.css';
 import mqtt from 'mqtt';
 import useAforo from '../../hooks/useAforo';
+
+import getOficinas from '../../services/getOficinas';
 
 const options = {
     protocol: 'ws',
@@ -24,9 +25,19 @@ function Home() {
     const [color, setColor] = useState('success');
     const [oficina, setOficina] = useState('1');
     const { aforo, getAforoOficina, setAforo } = useAforo();
+    const [listaOficinas, setListaOficinas] = useState([]);
 
     useEffect(() => {
         document.title = "Control de Aforo";
+    }, []);
+
+    useEffect(() => {
+        async function getOficina() {
+            getOficinas().then(res => {
+                setListaOficinas(res);
+            });
+        }
+        getOficina();
     }, []);
 
     useEffect(() => {
@@ -62,49 +73,28 @@ function Home() {
         }
 
     }, [aforo, creciente]);
-    
-    /* function handleAddClick() {
-        if (aforo === maxAforo) {
-            alert('No puede superarse el aforo')
-        } else {
-            setAforo(aforo + 1);
-            const porcentaje = ((aforo + 1) * 100 / maxAforo)
-            if (porcentaje > 50 && porcentaje < 80) {
-                setColor('warning')
-            } else if (porcentaje > 80) {
-                setColor('danger')
-            }
-        }
+
+    const handleChange = (e) => {
+        setOficina(e.target.value);
     }
-
-    function handleSubClick() {
-
-        if (aforo !== 0) {
-            setAforo(aforo - 1);
-            const porcentaje = ((aforo - 1) * 100 / maxAforo)
-            if (porcentaje <= 80 && porcentaje > 50) {
-                setColor('warning')
-            } else if (porcentaje <= 50) {
-                setColor('success')
-            }
-        }
-    } */
-
+    
     return (
         <div className="home">
+            <div className="selector-container">
+                <div className="selector">
+                    <select defaultValue={'1'} onChange={handleChange}>
+                        {listaOficinas.map(option => {
+                            return <option key={option} value={option}>{`Oficina ${option}`}</option>
+                        })}
+
+                    </select>
+                    <span className='custom-arrow'></span> 
+                </div> 
+            </div> 
             <div className="counter-container">
                 <p className="counter">{aforo}</p>
             </div>
-            <ProgressBar variant={color} animated now={aforo * 100 / maxAforo} />
-            {/* <div className="button-container">
-                <div className="button">
-                    <Button variant="primary" size="lg" onClick={handleAddClick}>Sumar</Button>
-                </div>
-                <div className="button">
-                    <Button variant="danger" size="lg" onClick={handleSubClick}>Restar</Button>
-                </div>
-            </div> */}
-            
+            <ProgressBar variant={color} animated now={aforo * 100 / maxAforo} />          
         </div>
     )
 }

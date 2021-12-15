@@ -54,7 +54,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `controlaforo`.`rfid` ;
 
 CREATE TABLE IF NOT EXISTS `controlaforo`.`rfid` (
-  `id_rfid` VARCHAR(10) NOT NULL,
+  `id_rfid` VARCHAR(12) NOT NULL,
   `id_usuario` VARCHAR(45) NOT NULL,
   `id_oficina` INT NOT NULL,
   PRIMARY KEY (`id_rfid`),

@@ -34,7 +34,9 @@ function Home() {
     useEffect(() => {
         async function getOficina() {
             getOficinas().then(res => {
-                setListaOficinas(res);
+                if (res) {
+                    setListaOficinas(res);
+                }
             });
         }
         getOficina();

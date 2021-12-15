@@ -1,28 +1,31 @@
 import random
 
+cadena_inicio = "INSERT INTO usuarios VALUES ("
+cadena_final = ");"
+
 #Lectura de nombres .txt
-nombres = open ('RUTA', 'r')
+nombres = open ('Nombres.txt', 'r')
 lecturaNombres = nombres.read()
 print(lecturaNombres)
 listaNombres = lecturaNombres.split()
 nombres.close
 
 #Lectura de RFIDs .txt
-rfids = open ('RUTA', 'r')
+rfids = open ('RFIDs.txt', 'r')
 lecturaRfids = rfids.read()
 print(lecturaRfids)
 listaRfids = lecturaRfids.split('\n')
 rfids.close
 
 #Lectura de apellidos .txt
-apellidos = open ('RUTA', 'r')
+apellidos = open ('Apellidos.txt', 'r')
 lecturaApellidos = apellidos.read()
 print(lecturaApellidos)
 listaApellidos = lecturaApellidos.split()
 apellidos.close
 
 #Lectura de direcciones .txt
-direcciones = open ('RUTA', 'r')
+direcciones = open ('Direcciones.txt', 'r')
 lecturaDirecciones = direcciones.read()
 print(lecturaDirecciones)
 listaDirecciones = lecturaDirecciones.split('\n')
@@ -57,8 +60,9 @@ def crear_usuario(ids):
     numero_extraccion3 = random.randint(0, len(listaApellidos)-1)
     apellido2 = str(listaApellidos[numero_extraccion3])
 
-    username = nombre + apellido1 + str(numero_extraccion)
-    password = nombre + apellido1 + str(numero_extraccion) + str(numero_extraccion2) +str(numero_extraccion3)
+    username = nombre + apellido1
+    password = nombre + apellido1 + '1234'
+    password = password.lower()
     dni = genera_dni_aleatorio()
     email = (nombre + apellido1 + '@gmail.com').lower()
     telefono = genera_numero_telefono()
@@ -82,16 +86,33 @@ def crear_lista_usuarios(numero, lista):
     return lista
 
 def escribir_usuarios(lista):
-    salida = open('RUTA', 'w')
-    elemento_actual = 0
+    salida = open('Usuarios generados.sql', 'w')
+    rfids = open ('Lista RFIDs.txt', 'w')
+    salida.write('INSERT INTO oficinas VALUES (1,10);\n')
+    salida.write('INSERT INTO oficinas VALUES (2,5);\n')
+    salida.write('INSERT INTO oficinas VALUES (3,20);\n')
+    salida.write('\n')
+    contador = 0
     for user in lista:
+        salida.write(cadena_inicio)
         for atributo in user:
             salida.write(str(atributo))
             if (user.index(atributo) != 7):
                 salida.write(', ')
+        salida.write(cadena_final)
+        salida.write('\n')
+        salida.write('INSERT INTO rfid VALUES (')
+        salida.write(f'"{listaRfids[contador]}",')
+        salida.write(', ')
+        salida.write(str(user[0]))
+        salida.write(', 1);')
         salida.write('\n')
         salida.write('\n')
+
+        rfids.write(f'{listaRfids[contador]} - {user[1]}\n')
+        contador += 1
     salida.close
+    rfids.close
 
 
 #Programa principal
@@ -99,6 +120,11 @@ def escribir_usuarios(lista):
 numero_usuarios = 22
 lista_usuarios = []
 escribir_usuarios(crear_lista_usuarios(numero_usuarios, lista_usuarios))
+
+
+
+
+
 
 
 

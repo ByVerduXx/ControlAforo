@@ -1,44 +1,44 @@
-'1', 'MontseSegura36', 'MontseSegura36714', '78904315D', 'montsesegura@gmail.com', '719044426', 'Montse Segura Garcia', 'Gran Vía, Madrid'
+INSERT INTO usuarios VALUES ('1', 'AlbertoRobledo', 'albertorobledo1234', '07098225B', 'albertorobledo@gmail.com', '675399005', 'Alberto Robledo Marin', 'Calle del Conde de las Posadas 13M, Madrid');
 
-'2', 'CarlaRobledo30', 'CarlaRobledo30114', '41259175G', 'carlarobledo@gmail.com', '662280047', 'Carla Robledo López', 'Calle de Guabairo 32, Madrid'
+INSERT INTO usuarios VALUES ('2', 'HugoArias', 'hugoarias1234', '10216888N', 'hugoarias@gmail.com', '659778188', 'Hugo Arias Rubio', 'Gran Vía, Madrid');
 
-'3', 'PilarMarin35', 'PilarMarin35515', '89296795P', 'pilarmarin@gmail.com', '672468885', 'Pilar Marin Arias', 'Travesía de San Mateo 9, Madrid'
+INSERT INTO usuarios VALUES ('3', 'JoseRodriguez', 'joserodriguez1234', '56135404V', 'joserodriguez@gmail.com', '657606026', 'Jose Rodriguez Marin', 'Alcalde Garrido Juaristi, Madrid');
 
-'4', 'RosaArias38', 'RosaArias381510', '14676340V', 'rosaarias@gmail.com', '693988514', 'Rosa Arias Rojo', 'Calle de Hacienda de Pavones 7, Madrid'
+INSERT INTO usuarios VALUES ('4', 'MarianSegura', 'mariansegura1234', '82172454D', 'mariansegura@gmail.com', '675295438', 'Marian Segura Sanchez', 'Calle de Barquillo 40, Madrid');
 
-'5', 'ManuelSanchez11', 'ManuelSanchez1136', '16109442N', 'manuelsanchez@gmail.com', '630724542', 'Manuel Sanchez Redondo', 'Calle de Barquillo 40, Madrid'
+INSERT INTO usuarios VALUES ('5', 'IreneRuiz', 'ireneruiz1234', '63883106P', 'ireneruiz@gmail.com', '733776419', 'Irene Ruiz Arias', 'Calle del Conde de las Posadas 13M, Madrid');
 
-'6', 'GonzaloRuiz17', 'GonzaloRuiz1724', '99667431J', 'gonzaloruiz@gmail.com', '788498749', 'Gonzalo Ruiz López', 'Calle de Sánchez Pacheco 84, Madrid'
+INSERT INTO usuarios VALUES ('6', 'AnastasiaRodriguez', 'anastasiarodriguez1234', '86556818K', 'anastasiarodriguez@gmail.com', '766217022', 'Anastasia Rodriguez Torrente', 'Calle del Conde de las Posadas 13M, Madrid');
 
-'7', 'RaquelRubio33', 'RaquelRubio331713', '98064150Q', 'raquelrubio@gmail.com', '677703110', 'Raquel Rubio Romo', 'Alcalde Garrido Juaristi, Madrid'
+INSERT INTO usuarios VALUES ('7', 'AnaRubio', 'anarubio1234', '85628938F', 'anarubio@gmail.com', '793184240', 'Ana Rubio Robledo', 'Alcalde Garrido Juaristi, Madrid');
 
-'8', 'AlbertoMarin0', 'AlbertoMarin058', '64719291M', 'albertomarin@gmail.com', '642509844', 'Alberto Marin Perez', 'Gran Vía, Madrid'
+INSERT INTO usuarios VALUES ('8', 'EdgarSerrano', 'edgarserrano1234', '92261911X', 'edgarserrano@gmail.com', '781026050', 'Edgar Serrano Rojo', 'Calle de Hacienda de Pavones 7, Madrid');
 
-'9', 'MariaRubio24', 'MariaRubio24173', '26435788W', 'mariarubio@gmail.com', '651644209', 'Maria Rubio Sanchez', 'Travesía de San Mateo 9, Madrid'
+INSERT INTO usuarios VALUES ('9', 'PabloGarcia', 'pablogarcia1234', '79662181W', 'pablogarcia@gmail.com', '766390459', 'Pablo Garcia Perez', 'Calle de Uceda 13, Madrid');
 
-'10', 'AngelinesRobledo31', 'AngelinesRobledo31119', '23105255F', 'angelinesrobledo@gmail.com', '785754229', 'Angelines Robledo Serrano', 'Calle de Uceda 13, Madrid'
+INSERT INTO usuarios VALUES ('10', 'HectorRiofrio', 'hectorriofrio1234', '65378770M', 'hectorriofrio@gmail.com', '673128038', 'Hector Riofrio Moreno', 'Calle de Hacienda de Pavones 7, Madrid');
 
-'11', 'CarlotaRuiz25', 'CarlotaRuiz25218', '87866056F', 'carlotaruiz@gmail.com', '701210141', 'Carlota Ruiz Barrio', 'Calle de Zarapitos 16, Madrid'
+INSERT INTO usuarios VALUES ('11', 'RaquelSanchez', 'raquelsanchez1234', '38140987H', 'raquelsanchez@gmail.com', '672279984', 'Raquel Sanchez Riofrio', 'Calle Cañada Real de Merinas 71, Madrid');
 
-'12', 'MarcosRuiz2', 'MarcosRuiz223', '89413738L', 'marcosruiz@gmail.com', '644365586', 'Marcos Ruiz Sanchez', 'Calle de Guabairo 32, Madrid'
+INSERT INTO usuarios VALUES ('12', 'CarlaTorrente', 'carlatorrente1234', '24814302Q', 'carlatorrente@gmail.com', '757859057', 'Carla Torrente Marin', 'Calle de Sánchez Pacheco 84, Madrid');
 
-'13', 'SofiaRubio24', 'SofiaRubio241711', '78140418B', 'sofiarubio@gmail.com', '747804851', 'Sofia Rubio Robledo', 'Calle del Conde de las Posadas 13M, Madrid'
+INSERT INTO usuarios VALUES ('13', 'AdrianRubio', 'adrianrubio1234', '91016653H', 'adrianrubio@gmail.com', '736989356', 'Adrian Rubio Serrano', 'Calle de Guabairo 32, Madrid');
 
-'14', 'AnastasiaRobledo31', 'AnastasiaRobledo311115', '06158283X', 'anastasiarobledo@gmail.com', '682852512', 'Anastasia Robledo Arias', 'Calle Cañada Real de Merinas 71, Madrid'
+INSERT INTO usuarios VALUES ('14', 'MariluzRojo', 'mariluzrojo1234', '97212124W', 'mariluzrojo@gmail.com', '786472021', 'Mariluz Rojo Lopez', 'Calle de Uceda 13, Madrid');
 
-'15', 'MarianSanchez29', 'MarianSanchez29313', '36744423Z', 'mariansanchez@gmail.com', '727188002', 'Marian Sanchez Romo', 'Av de Daroca, Madrid'
+INSERT INTO usuarios VALUES ('15', 'JesusRobledo', 'jesusrobledo1234', '24088132W', 'jesusrobledo@gmail.com', '659841569', 'Jesus Robledo Rodriguez', 'Calle de Eduardo Saavedra 4, Madrid');
 
-'16', 'ClaraGarcia23', 'ClaraGarcia23143', '31283925S', 'claragarcia@gmail.com', '649608391', 'Clara Garcia Sanchez', 'Calle de Zarapitos 16, Madrid'
+INSERT INTO usuarios VALUES ('16', 'DanielMarin', 'danielmarin1234', '67061755B', 'danielmarin@gmail.com', '748418110', 'Daniel Marin Redondo', 'Gran Vía, Madrid');
 
-'17', 'AngelRuiz18', 'AngelRuiz18219', '59255888E', 'angelruiz@gmail.com', '713229138', 'Angel Ruiz Santos', 'Calle de Guabairo 32, Madrid'
+INSERT INTO usuarios VALUES ('17', 'LuisBarrio', 'luisbarrio1234', '18830742K', 'luisbarrio@gmail.com', '644798737', 'Luis Barrio Sanchez', 'Calle de Hacienda de Pavones 7, Madrid');
 
-'18', 'AlbaPerez20', 'AlbaPerez20813', '26659652F', 'albaperez@gmail.com', '714332875', 'Alba Perez Romo', 'Calle de Sánchez Pacheco 84, Madrid'
+INSERT INTO usuarios VALUES ('18', 'AbrilMarin', 'abrilmarin1234', '52600002Z', 'abrilmarin@gmail.com', '796261350', 'Abril Marin Marin', 'Calle de Hacienda de Pavones 7, Madrid');
 
-'19', 'PabloRojo9', 'PabloRojo9100', '29768614J', 'pablorojo@gmail.com', '762291839', 'Pablo Rojo Rodriguez', 'Calle de Uceda 13, Madrid'
+INSERT INTO usuarios VALUES ('19', 'PaulaMarin', 'paulamarin1234', '88922798Z', 'paulamarin@gmail.com', '774749872', 'Paula Marin Marin', 'Calle del Conde de las Posadas 13M, Madrid');
 
-'20', 'LuisRuiz5', 'LuisRuiz5217', '24883421C', 'luisruiz@gmail.com', '713197287', 'Luis Ruiz Rubio', 'Gran Vía, Madrid'
+INSERT INTO usuarios VALUES ('20', 'BorjaSerrano', 'borjaserrano1234', '11583727F', 'borjaserrano@gmail.com', '622490542', 'Borja Serrano Ruiz', 'Calle de Zarapitos 16, Madrid');
 
-'21', 'BertaMarin20', 'BertaMarin2058', '89555550J', 'bertamarin@gmail.com', '735519508', 'Berta Marin Perez', 'Calle de Hacienda de Pavones 7, Madrid'
+INSERT INTO usuarios VALUES ('21', 'MarcoGarcia', 'marcogarcia1234', '53995984B', 'marcogarcia@gmail.com', '748958683', 'Marco Garcia Barrio', 'Calle de Uceda 13, Madrid');
 
-'22', 'BorjaMarin12', 'BorjaMarin12511', '64088795P', 'borjamarin@gmail.com', '707310576', 'Borja Marin Robledo', 'Calle de Guabairo 32, Madrid'
+INSERT INTO usuarios VALUES ('22', 'IgnacioTorrente', 'ignaciotorrente1234', '41950561X', 'ignaciotorrente@gmail.com', '651127548', 'Ignacio Torrente Torrente', 'Gran Vía, Madrid');
 

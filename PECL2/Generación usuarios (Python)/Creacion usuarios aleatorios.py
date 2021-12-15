@@ -102,7 +102,7 @@ def escribir_usuarios(lista):
         salida.write(cadena_final)
         salida.write('\n')
         salida.write('INSERT INTO rfid VALUES (')
-        salida.write(f'"{listaRfids[contador]}",')
+        salida.write(f'"{listaRfids[contador].strip()}",')
         salida.write(', ')
         salida.write(str(user[0]))
         salida.write(', 1);')

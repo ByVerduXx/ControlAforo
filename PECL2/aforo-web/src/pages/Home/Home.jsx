@@ -71,6 +71,8 @@ function Home() {
                 setColor('warning')
             } else if (porcentaje <= 50) {
                 setColor('success')
+            } else if (porcentaje > 80) {
+                setColor('danger')
             }
         }
 

@@ -42,6 +42,20 @@ const getUser = (userid) => {
     })
 }
 
+const getUserNotifications = (userid) => {
+    return new Promise((resolve, reject) => {
+        db.getUserNotifications(userid).then((notifications) => {
+            if (notifications) {
+                return resolve(notifications)
+            } else {
+                return reject('User not found')
+            }
+        }).catch((err) => {
+            return reject(err)
+        })
+    })
+}
+
 const checkUserCredentials = (username, password) => {
     return new Promise(async (resolve, reject) => {
         db.getUserIdFromUserName(username)
@@ -103,3 +117,4 @@ exports.checkUserCredentials = checkUserCredentials
 exports.getAllUsers = getAllUsers
 exports.updateUser = updateUser
 exports.deleteUserProfile = deleteUserProfile
+exports.getUserNotifications = getUserNotifications

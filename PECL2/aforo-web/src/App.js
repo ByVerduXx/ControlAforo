@@ -12,6 +12,7 @@ import Register from './pages/Register/Register';
 import Notify from './pages/Notify/Notify'
 import NoPage from './pages/NoPage/NoPage'
 import Profile from './pages/Profile/Profile';
+import Notifications from './pages/Notifications/Notifications';
 
 import { UserContextProvider } from './context/UserContext';
 
@@ -27,6 +28,7 @@ function App() {
             <Route path='/register' component={Register} />
             <Route path='/profile/:username' component={Profile} />
             <Route path='/notify' component={Notify} />
+            <Route path='/:username/notifications' component={Notifications} />
             <Route component={NoPage} />
           </Switch>
         </Router>

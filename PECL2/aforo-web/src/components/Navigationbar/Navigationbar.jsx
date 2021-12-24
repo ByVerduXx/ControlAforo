@@ -41,8 +41,12 @@ function Navigationbar() {
                                     Perfil &nbsp;
                                     <i className="far fa-user"></i>    
                                 </NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to={`/${window.sessionStorage.getItem('user')}/notifications`} href={`#`}>
+                                    Notificaciones &nbsp;
+                                    <i className="far fa-bell"></i>    
+                                </NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to="/notify" href="/notify">
-                                    Notificar &nbsp;
+                                    Covid &nbsp;
                                     <i className="fas fa-exclamation-circle"></i>
                                 </NavDropdown.Item>
                                 <NavDropdown.Divider />

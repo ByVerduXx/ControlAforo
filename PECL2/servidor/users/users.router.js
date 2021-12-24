@@ -1,21 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const authHttpHandler = require('./users.http')
+const usersHttpHandler = require('./users.http')
 const authMiddleware = require('../middlewares/authMiddleware').authMiddleware
 
 
 router.route('/')
-    .get(authHttpHandler.getUsers);
+    .get(usersHttpHandler.getUsers);
 
 router.route('/login')
-    .post(authHttpHandler.loginUser);
+    .post(usersHttpHandler.loginUser);
 
 router.route('/register')
-    .post(authHttpHandler.registerUser);
+    .post(usersHttpHandler.registerUser);
 
 router.route('/profile/:username')
-    .get(authMiddleware,authHttpHandler.getUserProfile)
-    .put(authMiddleware,authHttpHandler.updateUserProfile)
-    .delete(authMiddleware ,authHttpHandler.deleteUserProfile);
+    .get(authMiddleware,usersHttpHandler.getUserProfile)
+    .put(authMiddleware,usersHttpHandler.updateUserProfile)
+    .delete(authMiddleware ,usersHttpHandler.deleteUserProfile);
 
+router.route('/:username/notifications')
+    .get(authMiddleware,usersHttpHandler.getUserNotifications)
 exports.router = router;

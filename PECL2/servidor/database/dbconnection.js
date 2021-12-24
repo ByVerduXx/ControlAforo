@@ -96,6 +96,17 @@ function getUserProfile(id_usuario) {
     });
 }
 
+function getUserNotifications(id_usuario) {
+    return new Promise((resolve, reject) => {
+        const sql = 'select id_notificacion, username, email, nombre_completo, fecha_positivo from notificaciones inner join (select id_positivo, username, email, nombre_completo, fecha_positivo from positivos inner join usuarios on positivos.id_usuario = usuarios.id_usuario) as tabla1 on notificaciones.id_positivo = tabla1.id_positivo where notificaciones.id_usuario = ?';
+        pool.query(sql, [id_usuario]).then(rows => {
+            resolve(rows);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 function updateUserProfile(id_usuario, username, password, dni, email, telefono, nombre, direccion) {
     return new Promise((resolve, reject) => {
         const sql = 'UPDATE usuarios SET username = ?, contrasena = ?, dni = ?, email = ?, telefono = ?, nombre_completo = ?, direccion = ? WHERE id_usuario = ?';
@@ -238,5 +249,6 @@ module.exports = {
     setUserIn,
     getActualOfficeCapacity,
     getOficinas,
-    getOficinaFromRfid
+    getOficinaFromRfid,
+    getUserNotifications,
 };

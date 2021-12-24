@@ -54,6 +54,18 @@ const getUserProfile = async (req, res) => {
     return res.status(200).json(resp)
 }
 
+const getUserNotifications = async (req, res) => {
+    if (httpContext.get('user') !== req.params.username) {
+        return res.status(401).json({ message: 'Unauthorized' })
+    }
+    const userid = httpContext.get('userid')
+    let [err, resp] = await to(usersController.getUserNotifications(userid));
+    if (err) {
+        return res.status(400).json({ message: err })
+    }
+    return res.status(200).json(resp)
+}
+
 const updateUserProfile = async (req, res) => {
     if (httpContext.get('user') !== req.params.username) {
         return res.status(401).json({ message: 'Unauthorized' })
@@ -98,3 +110,4 @@ exports.getUsers = getUsers;
 exports.getUserProfile = getUserProfile;
 exports.updateUserProfile = updateUserProfile;
 exports.deleteUserProfile = deleteUserProfile;
+exports.getUserNotifications = getUserNotifications;

@@ -206,6 +206,21 @@ function getOficinas() {
     });
 }
 
+function getOficinaFromRfid(id_rfid) {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT id_oficina FROM rfid WHERE id_rfid = ?';
+        pool.query(sql, [id_rfid]).then(rows => {
+            if (rows.length > 0) {
+                resolve(rows[0].id_oficina);
+            } else {
+                reject('No existe el rfid');
+            }
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 module.exports = {
     getTest,
     getUserIdFromUserName,
@@ -223,4 +238,5 @@ module.exports = {
     setUserIn,
     getActualOfficeCapacity,
     getOficinas,
+    getOficinaFromRfid
 };

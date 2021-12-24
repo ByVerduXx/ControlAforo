@@ -13,10 +13,6 @@ const options = {
 };
 
 const client = mqtt.connect(`ws://${process.env.REACT_APP_MQTT_URL}:9001`, options);
-client.on('connect', () => {
-    client.subscribe('aforo');
-});
-
 
 function Home() {
 
@@ -47,6 +43,10 @@ function Home() {
     }, [oficina, getAforoOficina]);
 
     useEffect(() => {
+        client.on('connect', () => {
+            client.subscribe('Oficina1/aforo');
+        });
+
         client.on('message', (topic, message) => {
             if (message.toString() === '1') {
                 setAforo(a => a + 1);
@@ -61,11 +61,13 @@ function Home() {
     useEffect(() => {
         const porcentaje = (aforo * 100 / maxAforo)
         if (creciente) {
-        if (porcentaje > 50 && porcentaje < 80) {
-            setColor('warning')
-        } else if (porcentaje > 80) {
-            setColor('danger')
-        }
+            if (porcentaje > 50 && porcentaje < 80) {
+                setColor('warning')
+            } else if (porcentaje > 80) {
+                setColor('danger')
+            } else {
+                setColor('success')
+            }
         } else {
             if (porcentaje <= 80 && porcentaje > 50) {
                 setColor('warning')
@@ -75,13 +77,15 @@ function Home() {
                 setColor('danger')
             }
         }
-
     }, [aforo, creciente]);
 
     const handleChange = (e) => {
+        client.unsubscribe(`Oficina${oficina}/aforo`);
+        delete client.messageIdToTopic[`Oficina${oficina}/aforo`];
         setOficina(e.target.value);
+        client.subscribe(`Oficina${e.target.value}/aforo`);
     }
-    
+
     return (
         <div className="home">
             <div className="selector-container">
@@ -92,13 +96,13 @@ function Home() {
                         })}
 
                     </select>
-                    <span className='custom-arrow'></span> 
-                </div> 
-            </div> 
+                    <span className='custom-arrow'></span>
+                </div>
+            </div>
             <div className="counter-container">
                 <p className="counter">{aforo}</p>
             </div>
-            <ProgressBar variant={color} animated now={aforo * 100 / maxAforo} />          
+            <ProgressBar variant={color} animated now={aforo * 100 / maxAforo} />
         </div>
     )
 }

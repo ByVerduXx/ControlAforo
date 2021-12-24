@@ -2,7 +2,7 @@ const db = require('../database/dbconnection');
 const { getDateString } = require('../tools/date')
 
 
-const cardHandler = (cardid, client) => {
+const cardHandler = (cardid, client, oficina) => {
     //ver si la tarjeta está en la base de datos
     db.getCard(cardid).then(result => {
         if (result.length > 0) {
@@ -13,10 +13,10 @@ const cardHandler = (cardid, client) => {
                     //si esta, sacarlo de la sala y pubclicar -1 en aforo y 1 en alerta
                     let date = getDateString();
                     db.takeUserOut(id_usuario, date).then(result => {
-                        client.publish('aforo', '-1');
-                        client.publish('alerta', '1');
+                        client.publish(`${oficina}/aforo`, '-1');
+                        client.publish(`${oficina}/alerta`, '1');
                     }).catch(err => {
-                        client.publish('alerta', '0');
+                        client.publish(`${oficina}/alerta`, '0');
                     });
                 } else {
                     //si no esta, ver si el aforo está completo
@@ -25,27 +25,27 @@ const cardHandler = (cardid, client) => {
                         if (result > 0) {
                             let date = getDateString();
                             db.setUserIn(id_usuario, date).then(result => {
-                                client.publish('aforo', '1');
-                                client.publish('alerta', '1');
+                                client.publish(`${oficina}/aforo`, '1');
+                                client.publish(`${oficina}/alerta`, '1');
                             }).catch(err => {
-                                client.publish('alerta', '0');
+                                client.publish(`${oficina}/alerta`, '0');
                             });
                         } else {
                             //si el aforo esta completo, mandar un 0 a alerta
-                            client.publish('alerta', '0');
+                            client.publish(`${oficina}/alerta`, '0');
                         }
                     }).catch(err => {
-                        client.publish('alerta', '0');
+                        client.publish(`${oficina}/alerta`, '0');
                     });
                 }
             }).catch(err => {
-                client.publish('alerta', '0')
+                client.publish(`${oficina}/alerta`, '0')
             });        
         } else {
-            client.publish('alerta', '0');
+            client.publish(`${oficina}/alerta`, '0');
         }
     }).catch(err => {
-        client.publish('alerta', '0');
+        client.publish(`${oficina}/alerta`, '0');
     });
 }
 

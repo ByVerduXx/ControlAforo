@@ -12,7 +12,7 @@ function Profile() {
         hasDeleteUserError, isDeleteUserLoading, deleteUserMessage, logout} = useUser()
     const history = useHistory()
     const {username} = useParams()
-    const [modifiedData, setModifiedData] = useState({password: '', dni: '', email: '', telefono: '', nombre: '', direccion: ''})
+    const [modifiedData, setModifiedData] = useState({password: '', dni: '', email: '', telefono: '', nombre: '', direccion: '', rfid: '', oficina: ''})
     const [disabled, setDisabled] = useState(true)
 
     useEffect(() => {
@@ -82,6 +82,10 @@ function Profile() {
                     <Input id='nombre' classname={disabled ? 'desactivado' : ''} nombre="nombre" valor={userData.nombre} disabled={disabled} onChange={handleChange} />
                     <label htmlFor="direccion">Dirección</label>
                     <Input id='direccion' classname={disabled ? 'desactivado' : ''} nombre="direccion" valor={userData.direccion} disabled={disabled} onChange={handleChange} />
+                    <label htmlFor="rfid">RFID</label>
+                    <Input id='rfid' classname={'desactivado'} nombre="rfid" valor={userData.rfid} disabled />
+                    <label htmlFor="oficina">Oficina</label>
+                    <Input id='oficina' classname={'desactivado'} nombre="oficina" valor={userData.oficina} disabled />
                     <div className="botonera">
                         <Button classname="azul" disabled={!disabled} onClick={handleModifyClick}>Modificar</Button>
                         <Button classname="rojo" disabled={disabled} onClick={handleCancelClick} >Cancelar</Button>

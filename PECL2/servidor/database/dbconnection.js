@@ -44,6 +44,17 @@ function insertUser(id_usuario, username, password, dni, email, telefono, nombre
     });
 }
 
+function insertRfid(id_rfid, id_usuario, id_oficina) {
+    return new Promise((resolve, reject) => {
+        const sql = 'INSERT INTO rfid (id_rfid, id_usuario, id_oficina) VALUES (?, ?, ?)';
+        pool.query(sql, [id_rfid, id_usuario, id_oficina]).then(rows => {
+            resolve();
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 function getPassword(id_usuario) {
     return new Promise((resolve, reject) => {
         const sql = 'SELECT contrasena FROM usuarios WHERE id_usuario = ?';
@@ -72,7 +83,7 @@ function getUsers() {
 
 function getUserProfile(id_usuario) {
     return new Promise((resolve, reject) => {
-        const sql = 'SELECT * FROM usuarios WHERE id_usuario = ?';
+        const sql = 'SELECT usuarios.id_usuario, username, contrasena, dni, email, telefono, nombre_completo, direccion, id_rfid as rfid, id_oficina as oficina FROM usuarios inner join rfid on usuarios.id_usuario = rfid.id_usuario WHERE usuarios.id_usuario = ?';
         pool.query(sql, [id_usuario]).then(rows => {
             if (rows.length > 0) {
                 resolve(rows[0]);
@@ -199,6 +210,7 @@ module.exports = {
     getTest,
     getUserIdFromUserName,
     insertUser,
+    insertRfid,
     getPassword,
     getUsers,
     getUserProfile,

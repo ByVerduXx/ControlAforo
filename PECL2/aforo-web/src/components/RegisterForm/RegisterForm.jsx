@@ -28,14 +28,7 @@ function RegisterForm() {
     return (
         <>
             <Formik
-                initialValues={{ username: '', password: '', dni: '', email: '', telefono: '', nombre: '', direccion: '' }}
-                /*validate={values => {
-                    const errors = {};
-                    if (!values.username || !values.password || !values.age || !values.color) {
-                        errors.data = 'Faltan campos por rellenar';
-                    }
-                    return errors;
-                }}*/
+                initialValues={{ username: '', password: '', dni: '', email: '', telefono: '', nombre: '', direccion: '', rfid: '', oficina: '' }}
                 onSubmit={async (values, { setFieldError }) => {
                     return registerService(values)
                         .then(() => {
@@ -62,6 +55,8 @@ function RegisterForm() {
                                 <Input nombre="telefono" onChange={handleChange} placeholder="Telefono" />
                                 <Input nombre="nombre" onChange={handleChange} placeholder="Nombre" />
                                 <Input nombre="direccion" onChange={handleChange} placeholder="Direccion" />
+                                <Input nombre="rfid" onChange={handleChange} placeholder="RFID" />
+                                <Input nombre="oficina" onChange={handleChange} placeholder="Oficina" />
                                 <Button classname="boton-registrar" disabled={isSubmitting}>
                                     Registrarse
                                 </Button>

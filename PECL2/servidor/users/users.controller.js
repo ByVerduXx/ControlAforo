@@ -5,7 +5,7 @@ const {to} = require('../tools/to')
 const db = require('../database/dbconnection') 
 
 
-const registerUser = (username, password, dni, email, telefono, nombre, direccion) => {
+const registerUser = (username, password, dni, email, telefono, nombre, direccion, rfid, oficina) => {
     return new Promise((resolve, reject) => {
         db.getUserIdFromUserName(username).then(() => {
             return reject('El usuario ya existe')
@@ -14,9 +14,14 @@ const registerUser = (username, password, dni, email, telefono, nombre, direccio
             let userid = uuid.v4()
             let [err, data] = await to(db.insertUser(userid, username, hashedPassword, dni, email, telefono, nombre, direccion));
             if (err) {
-                return reject(err)
+                return reject('Error al registrar el usuario')
             } else {
-                return resolve(`User ${username} created successfully`)
+                let [err2, data2] = await to(db.insertRfid(rfid, userid, oficina))
+                if (err2) {
+                    return reject('Error al registrar el rfid')
+                } else {
+                    return resolve(`User ${username} created successfully`)
+                }
             }
             
         })

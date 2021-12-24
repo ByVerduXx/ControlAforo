@@ -12,7 +12,8 @@ export default function getUserData(username, jwt) {
     }).then(res => {
         const userData = {
             username: res.username, password: res.contrasena,
-            dni: res.dni, email: res.email, telefono: res.telefono, nombre: res.nombre_completo, direccion: res.direccion
+            dni: res.dni, email: res.email, telefono: res.telefono, nombre: res.nombre_completo, direccion: res.direccion, 
+            rfid: res.rfid, oficina: res.oficina
         }
         return userData
     })

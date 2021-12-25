@@ -232,6 +232,39 @@ function getOficinaFromRfid(id_rfid) {
     });
 }
 
+function getUsersLogLastWeek(id_usuario) {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM log WHERE id_usuario = ? and entrada > DATE_SUB(NOW(), INTERVAL 7 DAY)';
+        pool.query(sql, [id_usuario]).then(rows => {
+            resolve(rows);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
+function insertPositivo(id_positivo, id_usuario, fecha) {
+    return new Promise((resolve, reject) => {
+        const sql = 'INSERT INTO positivos (id_positivo, id_usuario, fecha_positivo) VALUES (?, ?, ?)';
+        pool.query(sql, [id_positivo, id_usuario, fecha]).then(rows => {
+            resolve();
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
+function getUsuariosInContactWithPositive(entrada, salida) {
+    return new Promise((resolve, reject) => {
+        const sql = 'select * from log where (entrada < ? and salida > ? and salida < ?) or (entrada > ? and entrada < ?)'
+        pool.query(sql, [entrada, entrada, salida, entrada, salida]).then(rows => {
+            resolve(rows);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 module.exports = {
     getTest,
     getUserIdFromUserName,
@@ -251,4 +284,7 @@ module.exports = {
     getOficinas,
     getOficinaFromRfid,
     getUserNotifications,
+    getUsersLogLastWeek,
+    insertPositivo,
+    getUsuariosInContactWithPositive
 };

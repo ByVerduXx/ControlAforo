@@ -93,7 +93,7 @@ const updateUserProfile = async (req, res) => {
 }
 
 const deleteUserProfile = async (req, res) => {
-    if (httpContext.get('user') !== req.params.username) {
+    if (httpContext.get('user') !== req.params.username) { 
         return res.status(401).json({ message: 'Unauthorized' })
     }
     const userid = httpContext.get('userid')

@@ -16,7 +16,7 @@ const client = mqtt.connect(`ws://${process.env.REACT_APP_MQTT_URL}:9001`, optio
 
 function Home() {
 
-    const maxAforo = 10;
+    const maxAforo = 10; //cambiar
     const [creciente, setCreciente] = useState(false);
     const [color, setColor] = useState('success');
     const [oficina, setOficina] = useState('1');

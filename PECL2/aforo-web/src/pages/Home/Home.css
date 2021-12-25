@@ -93,3 +93,9 @@ select {
 select:focus, select:active, select:hover {
     outline: none;
 }
+
+@media screen and (max-width: 960px) {
+    .selector-container {
+        left: auto;
+    }
+}

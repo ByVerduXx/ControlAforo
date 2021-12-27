@@ -6,6 +6,7 @@ import mqtt from 'mqtt';
 import useAforo from '../../hooks/useAforo';
 
 import getOficinas from '../../services/getOficinas';
+import getMaxAforo from '../../services/getMaxAforo';
 
 const options = {
     protocol: 'ws',
@@ -16,7 +17,7 @@ const client = mqtt.connect(`ws://${process.env.REACT_APP_MQTT_URL}:9001`, optio
 
 function Home() {
 
-    const maxAforo = 10; //cambiar
+    const [maxAforo, setMaxAforo] = useState(0);
     const [creciente, setCreciente] = useState(false);
     const [color, setColor] = useState('success');
     const [oficina, setOficina] = useState('1');
@@ -37,6 +38,17 @@ function Home() {
         }
         getOficina();
     }, []);
+
+    useEffect(() => {
+        async function getMaxAforoOficina() {
+            getMaxAforo(oficina).then(res => {
+                if (res) {
+                    setMaxAforo(res.aforo);
+                }
+            });
+        }
+        getMaxAforoOficina();
+    }, [oficina]);
 
     useEffect(() => {
         getAforoOficina(oficina);
@@ -77,7 +89,7 @@ function Home() {
                 setColor('danger')
             }
         }
-    }, [aforo, creciente]);
+    }, [aforo, creciente, maxAforo]);
 
     const handleChange = (e) => {
         client.unsubscribe(`Oficina${oficina}/aforo`);

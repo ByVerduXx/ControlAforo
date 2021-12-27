@@ -37,9 +37,18 @@ app.get('/oficina', (req, res) => {
     });
 })
 
-app.get('/oficina/:id_oficina', (req, res) => {
+app.get('/oficina/:id_oficina/aforo_actual', (req, res) => {
     const id_oficina = req.params.id_oficina;
     db.getActualOfficeCapacity(id_oficina).then(result => {
+        res.status(200).json({aforo: result});
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+})
+
+app.get('/oficina/:id_oficina/max_aforo', (req, res) => {
+    const id_oficina = req.params.id_oficina;
+    db.getMaxAforo(id_oficina).then(result => {
         res.status(200).json({aforo: result});
     }).catch(err => {
         res.status(500).send(err);

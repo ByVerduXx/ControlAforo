@@ -1,7 +1,7 @@
 const ENDPOINT = process.env.REACT_APP_API_URL;
 
-export default function getAforo(id_oficina) {
-    return fetch(`${ENDPOINT}/oficina/${id_oficina}/aforo_actual`)
+export default function getMaxAforo(id_oficina) {
+    return fetch(`${ENDPOINT}/oficina/${id_oficina}/max_aforo`)
     .then(res => {
         if (!res.ok) throw new Error(res.statusText)
         return res.json()

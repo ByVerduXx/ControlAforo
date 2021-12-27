@@ -217,6 +217,17 @@ function getOficinas() {
     });
 }
 
+function getMaxAforo(id_oficina) {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT aforo FROM oficinas WHERE id_oficina = ?';
+        pool.query(sql, [id_oficina]).then(rows => {
+            resolve(rows[0].aforo);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 function getOficinaFromRfid(id_rfid) {
     return new Promise((resolve, reject) => {
         const sql = 'SELECT id_oficina FROM rfid WHERE id_rfid = ?';
@@ -286,5 +297,6 @@ module.exports = {
     getUserNotifications,
     getUsersLogLastWeek,
     insertPositivo,
-    getUsuariosInContactWithPositive
+    getUsuariosInContactWithPositive,
+    getMaxAforo
 };

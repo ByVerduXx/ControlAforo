@@ -3,6 +3,8 @@ import useUser from '../../hooks/useUser'
 import {useHistory, useParams} from 'react-router-dom'
 import getNotifications from '../../services/getNotifications'
 
+import NotificationCard from '../../components/NotificationCard/NotificationCard'
+import Button from '../../components/Button/Button'
 
 import './Notifications.css'
 
@@ -29,7 +31,14 @@ function Notifications() {
 
     return (
         <div className='notifications'>
-            Hello World
+            <div className='notifications-list'>
+                {notifications.map(notification => (
+                    <div>
+                        <NotificationCard key={notification.id_notificacion} {...notification} />
+                        <Button classname='rojo' type='button'><i className='fas fa-trash'></i></Button>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

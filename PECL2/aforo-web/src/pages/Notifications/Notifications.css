@@ -1,4 +1,4 @@
-.notify {
+.notifications {
     background-color: rgb(25, 25, 25);
     color: #fff;
     height: 100vh;
@@ -8,6 +8,12 @@
     width: 100%;
     z-index: -10;
     display: flex;
+}
+.notifications-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
     align-items: center;
     justify-content: center;
 }
+

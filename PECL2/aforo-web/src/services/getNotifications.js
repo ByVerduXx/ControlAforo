@@ -10,7 +10,6 @@ export default function getNotifications(username, jwt) {
         if (!res.ok) throw new Error(res.statusText)
         return res.json()
     }).then(res => {
-        console.log(res)
         return res
     }).catch(err => {
         console.log(err)

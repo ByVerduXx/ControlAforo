@@ -1,6 +1,6 @@
 const ENDPOINT = process.env.REACT_APP_API_URL;
 
-export default function getUserData(username, jwt) {
+export default function deleteUser(username, jwt) {
     return fetch(`${ENDPOINT}/users/profile/${username}`, {
         method: 'DELETE',
         headers: {

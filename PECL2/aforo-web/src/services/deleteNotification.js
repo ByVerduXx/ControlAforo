@@ -1,8 +1,8 @@
 const ENDPOINT = process.env.REACT_APP_API_URL;
 
-export default function getNotifications(username, jwt, page) {
-    return fetch(`${ENDPOINT}/users/${username}/notifications?page=${page}`, {
-        method: 'GET',
+export default function deleteNotification(username, jwt, id_notificacion) {
+    return fetch(`${ENDPOINT}/users/${username}/notifications/${id_notificacion}`, {
+        method: 'DELETE',
         headers: {
             'Authorization': `JWT ${jwt}`
         }
@@ -10,7 +10,7 @@ export default function getNotifications(username, jwt, page) {
         if (!res.ok) throw new Error(res.statusText)
         return res.json()
     }).then(res => {
-        return res
+        return res.message
     }).catch(err => {
         console.log(err)
         return err

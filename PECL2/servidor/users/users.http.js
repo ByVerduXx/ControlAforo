@@ -59,7 +59,32 @@ const getUserNotifications = async (req, res) => {
         return res.status(401).json({ message: 'Unauthorized' })
     }
     const userid = httpContext.get('userid')
-    let [err, resp] = await to(usersController.getUserNotifications(userid));
+    let page = req.query.page || 1
+    page = parseInt(page) - 1
+    let [err, resp] = await to(usersController.getUserNotifications(userid, page));
+    if (err) {
+        return res.status(400).json({ message: err })
+    }
+    return res.status(200).json(resp)
+}
+
+const deleteUserNotification = async (req, res) => {
+    if (httpContext.get('user') !== req.params.username) {
+        return res.status(401).json({ message: 'Unauthorized' })
+    }
+    let [err, resp] = await to(usersController.deleteUserNotification(req.params.id_notificacion));
+    if (err) {
+        return res.status(400).json({ message: err })
+    }
+    return res.status(200).json({ message: resp })
+}
+
+const getUserNotificationsPages = async (req, res) => {
+    if (httpContext.get('user') !== req.params.username) {
+        return res.status(401).json({ message: 'Unauthorized' })
+    }
+    const userid = httpContext.get('userid')
+    let [err, resp] = await to(usersController.getUserNotificationsPages(userid));
     if (err) {
         return res.status(400).json({ message: err })
     }
@@ -111,3 +136,5 @@ exports.getUserProfile = getUserProfile;
 exports.updateUserProfile = updateUserProfile;
 exports.deleteUserProfile = deleteUserProfile;
 exports.getUserNotifications = getUserNotifications;
+exports.getUserNotificationsPages = getUserNotificationsPages;
+exports.deleteUserNotification = deleteUserNotification;

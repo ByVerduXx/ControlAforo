@@ -42,9 +42,10 @@ const getUser = (userid) => {
     })
 }
 
-const getUserNotifications = (userid) => {
+const getUserNotifications = (userid, page) => {
     return new Promise((resolve, reject) => {
-        db.getUserNotifications(userid).then((notifications) => {
+        const limit = page * 4;
+        db.getUserNotifications(userid, limit).then((notifications) => {
             if (notifications) {
                 return resolve(notifications)
             } else {
@@ -55,6 +56,31 @@ const getUserNotifications = (userid) => {
         })
     })
 }
+
+const getUserNotificationsPages = (userid) => {
+    return new Promise((resolve, reject) => {
+        db.getUserNotificationsPages(userid).then((response) => {
+            if (response) {
+                return resolve(response)
+            } else {
+                return reject('User not found')
+            }
+        }).catch((err) => {
+            return reject(err)
+        })
+    })
+}
+
+const deleteUserNotification = (id_notificacion) => {
+    return new Promise((resolve, reject) => {
+        db.deleteNotification(id_notificacion).then(() => {
+            return resolve('Notificacion eliminada')
+        }).catch((err) => {
+            return reject(err)
+        })
+    })
+}
+
 
 const checkUserCredentials = (username, password) => {
     return new Promise(async (resolve, reject) => {
@@ -118,3 +144,5 @@ exports.getAllUsers = getAllUsers
 exports.updateUser = updateUser
 exports.deleteUserProfile = deleteUserProfile
 exports.getUserNotifications = getUserNotifications
+exports.getUserNotificationsPages = getUserNotificationsPages
+exports.deleteUserNotification = deleteUserNotification

@@ -96,11 +96,33 @@ function getUserProfile(id_usuario) {
     });
 }
 
-function getUserNotifications(id_usuario) {
+function getUserNotifications(id_usuario, limit) {
     return new Promise((resolve, reject) => {
-        const sql = 'select id_notificacion, username, email, nombre_completo, fecha_positivo from notificaciones inner join (select id_positivo, username, email, nombre_completo, fecha_positivo from positivos inner join usuarios on positivos.id_usuario = usuarios.id_usuario) as tabla1 on notificaciones.id_positivo = tabla1.id_positivo where notificaciones.id_usuario = ?';
-        pool.query(sql, [id_usuario]).then(rows => {
+        const sql = 'select id_notificacion, username, email, nombre_completo, fecha_positivo from notificaciones inner join (select id_positivo, username, email, nombre_completo, fecha_positivo from positivos inner join usuarios on positivos.id_usuario = usuarios.id_usuario) as tabla1 on notificaciones.id_positivo = tabla1.id_positivo where notificaciones.id_usuario = ? order by fecha_positivo desc limit ?,4';
+        pool.query(sql, [id_usuario,limit]).then(rows => {
             resolve(rows);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
+function getUserNotificationsPages(id_usuario) {
+    return new Promise((resolve, reject) => {
+        const sql = 'select ceiling(count(*)/4) as pages from notificaciones where id_usuario = ?';
+        pool.query(sql, [id_usuario]).then(rows => {
+            resolve(rows[0]);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
+function deleteNotification(id_notificacion) {
+    return new Promise((resolve, reject) => {
+        const sql = 'DELETE FROM notificaciones WHERE id_notificacion = ?';
+        pool.query(sql, [id_notificacion]).then(rows => {
+            resolve();
         }).catch(err => {
             reject(err);
         });
@@ -298,5 +320,7 @@ module.exports = {
     getUsersLogLastWeek,
     insertPositivo,
     getUsuariosInContactWithPositive,
-    getMaxAforo
+    getMaxAforo,
+    getUserNotificationsPages,
+    deleteNotification
 };

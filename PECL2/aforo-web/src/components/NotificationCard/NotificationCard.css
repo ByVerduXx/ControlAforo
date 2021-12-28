@@ -1,8 +1,32 @@
 .NotificationCard {
-    width: 30%;
-    margin-bottom: 20px;
-    background-color: blueviolet;
-    border: 1px solid #e6e6e6;
+    width: 40%;
+    margin-right: 20px;
+    background-color: #6495ed;
     border-radius: 10px;
     text-align: center;
+    box-shadow: 5px 5px #2b67d6;
+}
+
+.card-titulo {
+    margin-top: 10px;
+}
+
+.NotificationCard-body {
+    width: 100%;
+}
+
+.NotificationCard-body-fecha {
+    padding-left: 20px;
+    text-align: start;
+}
+@media screen and (max-width: 960px) {
+    .NotificationCard {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .NotificationCard {
+        width: 90%;
+    }
 }

@@ -20,4 +20,11 @@ router.route('/profile/:username')
 
 router.route('/:username/notifications')
     .get(authMiddleware,usersHttpHandler.getUserNotifications)
+
+router.route('/:username/notifications/pages')
+    .get(authMiddleware,usersHttpHandler.getUserNotificationsPages)
+
+router.route('/:username/notifications/:id_notificacion')
+    .delete(authMiddleware,usersHttpHandler.deleteUserNotification)
+
 exports.router = router;

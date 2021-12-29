@@ -26,6 +26,18 @@
     top: 35%;
 }
 
+.notify-alert {
+    font-size: 2rem;
+}
+
+.notify-error {
+    color: red;
+}
+
+.notify-success {
+    color: green;
+}
+
 .boton-notify {
     position: absolute;
     bottom: 30%;

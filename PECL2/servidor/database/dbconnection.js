@@ -298,6 +298,17 @@ function getUsuariosInContactWithPositive(entrada, salida) {
     });
 }
 
+function insertNotification(id_notificacion, id_usuario, id_positivo) {
+    return new Promise((resolve, reject) => {
+        const sql = 'INSERT INTO notificaciones (id_notificacion, id_usuario, id_positivo) VALUES (?, ?, ?)';
+        pool.query(sql, [id_notificacion, id_usuario, id_positivo]).then(rows => {
+            resolve();
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 module.exports = {
     getTest,
     getUserIdFromUserName,
@@ -322,5 +333,6 @@ module.exports = {
     getUsuariosInContactWithPositive,
     getMaxAforo,
     getUserNotificationsPages,
-    deleteNotification
+    deleteNotification,
+    insertNotification
 };

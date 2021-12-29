@@ -6,8 +6,8 @@ const db = require('../database/dbconnection')
 
 const notificar = (userid) => {
     return new Promise((resolve, reject) => {
-        let id_positivo = uuid.v4()
-        let date = getDateString();
+        const id_positivo = uuid.v4()
+        const date = getDateString();
         db.insertPositivo(id_positivo, userid, date).then(() => {
             db.getUsersLogLastWeek(userid).then((data) => {
                 if (data) {
@@ -20,7 +20,10 @@ const notificar = (userid) => {
                                 usuarios.forEach(element => {
                                     if (listaNotificados.indexOf(element.id_usuario) == -1) {
                                         listaNotificados.push(element.id_usuario)
-                                        // db.insertNotification(id_positivo, element.id_usuario, date)
+                                        const id_notificacion = uuid.v4()
+                                        db.insertNotification(id_notificacion, element.id_usuario, id_positivo).then(() => {
+                                            //notificar por mqtt
+                                        })
                                     }
                                 });
                                 return resolve(listaNotificados)

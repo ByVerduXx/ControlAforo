@@ -47,11 +47,10 @@ function Notifications() {
         }
     }
 
-    const handleDelete = (e) => {
-        console.log(e.target.id)
+    const handleDeleteNotification = (id_notificacion) => {
         if (window.confirm('¿Estás seguro de que quieres eliminar esta notificación?')) {
             let jwt = window.sessionStorage.getItem('jwt')
-            deleteNotification(username, jwt, e.target.id).then(() => {
+            deleteNotification(username, jwt, id_notificacion).then(() => {
                 getNotifications(username, jwt, pagina).then(setNotifications)
                 getNotificationPages(username, jwt).then(setPages)
                 setPagina(1)
@@ -62,12 +61,13 @@ function Notifications() {
     return (
         <div className='notifications'>
             <h1 className='notifications-title'>Notificaciones</h1>
+            {notifications.length > 0 ?
             <div className='notifications-content'>
                 <div className='notifications-container'>
                     {notifications.map(notification => (
                         <div className="notification-item" key={notification.id_notificacion}>
                             <NotificationCard {...notification} />
-                            <Button identificador={notification.id_notificacion} classname='rojo' type='button' onClick={handleDelete}><i className='fas fa-trash'></i></Button>
+                            <Button identificador={notification.id_notificacion} classname='rojo' type='button' onClick={() => {handleDeleteNotification(notification.id_notificacion)}}><i className='fas fa-trash'></i></Button>
                         </div>
                     ))}
                 </div>
@@ -77,6 +77,12 @@ function Notifications() {
                     <Button onClick={handleNextPage} disabled={pagina === pages ? true : false}>Sig</Button>
                 </div>
             </div>
+            : 
+            <>
+                <p className='no-notifications'>No tienes notificaciones</p>
+                <i className='far fa-sad-tear no-notifications'></i>  
+            </>  
+        }
         </div> 
     )
 }

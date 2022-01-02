@@ -35,7 +35,7 @@
     text-align: start;
     top: 0px;
     left: 70%;
-    color: #2c3e50;
+    color: #000;
 }
 @media screen and (max-width: 960px) {
     .NotificationCard {

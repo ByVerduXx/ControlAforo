@@ -1,7 +1,7 @@
 const ENDPOINT = process.env.REACT_APP_API_URL;
 
 export default function getOficinas() {
-    return fetch(`${ENDPOINT}/oficina`)
+    return fetch(`${ENDPOINT}/oficinas`)
     .then(res => {
         if (!res.ok) throw new Error(res.statusText)
         return res.json()

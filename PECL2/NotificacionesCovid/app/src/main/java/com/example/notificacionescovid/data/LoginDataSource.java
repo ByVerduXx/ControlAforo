@@ -1,26 +1,42 @@
 package com.example.notificacionescovid.data;
 
-import com.example.notificacionescovid.data.model.LoggedInUser;
+import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 public class LoginDataSource {
 
-    public Result<LoggedInUser> login(String username, String password) {
+    private URL url;
 
-        try {
+    public LoginDataSource()
+    {
+
+
+
+    }
+
+    public String login(String username, String password) throws Exception{
             // TODO: handle loggedInUser authentication
-            LoggedInUser fakeUser =
-                    new LoggedInUser(
-                            java.util.UUID.randomUUID().toString(),
-                            "Jane Doe");
-            return new Result.Success<>(fakeUser);
-        } catch (Exception e) {
-            return new Result.Error(new IOException("Error logging in", e));
+        String token = null;
+            /*JSONObject request = new JSONObject();
+            request.put("username","Manu01");
+            request.put("password", "123456");
+
+
+
+            String response = LlamadaServer.POST(new URL("http://localhost:3001/users/login"), request);*/
+        System.out.println(username+" = "+ password);
+        if(username.equals("Manu01") && password.equals("123456"))
+        {
+            token = "ey193829303403940394";
         }
+        return token;
     }
 
     public void logout() {

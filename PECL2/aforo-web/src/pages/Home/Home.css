@@ -48,6 +48,7 @@ select {
 
 .selector {
     position: relative;
+    margin-bottom: 20px;
 }
 
 .custom-arrow {

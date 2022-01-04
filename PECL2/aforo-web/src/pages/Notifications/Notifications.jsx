@@ -67,7 +67,7 @@ function Notifications() {
                     {notifications.map(notification => (
                         <div className="notification-item" key={notification.id_notificacion}>
                             <NotificationCard {...notification} />
-                            <Button identificador={notification.id_notificacion} classname='rojo' type='button' onClick={() => {handleDeleteNotification(notification.id_notificacion)}}><i className='fas fa-trash'></i></Button>
+                            <Button classname='rojo' type='button' onClick={() => {handleDeleteNotification(notification.id_notificacion)}}><i className='fas fa-trash'></i></Button>
                         </div>
                     ))}
                 </div>

@@ -269,7 +269,12 @@ function getUsersLogLastWeek(id_usuario) {
     return new Promise((resolve, reject) => {
         const sql = 'SELECT * FROM log WHERE id_usuario = ? and entrada > DATE_SUB(NOW(), INTERVAL 7 DAY)';
         pool.query(sql, [id_usuario]).then(rows => {
-            resolve(rows);
+            if (rows.length > 0) {
+                resolve(rows);
+            }
+            else {
+                reject('No hay registros');
+            }
         }).catch(err => {
             reject(err);
         });
@@ -289,12 +294,21 @@ function insertPositivo(id_positivo, id_usuario, fecha) {
 
 function getUsuariosInContactWithPositive(entrada, salida) {
     return new Promise((resolve, reject) => {
-        const sql = 'select * from log where (entrada < ? and salida > ? and salida < ?) or (entrada > ? and entrada < ?)'
-        pool.query(sql, [entrada, entrada, salida, entrada, salida]).then(rows => {
-            resolve(rows);
-        }).catch(err => {
-            reject(err);
-        });
+        if (salida !== null) {
+            const sql = 'select * from log where (entrada < ? and ((salida > ? and salida < ?) or salida is null)) or (entrada > ? and entrada < ?)'
+            pool.query(sql, [entrada, entrada, salida, entrada, salida]).then(rows => {
+                resolve(rows);
+            }).catch(err => {
+                reject(err);
+            });
+        } else {
+            const sql = 'select * from log where salida is null or entrada > ? or (entrada < ? and salida > ?)'
+            pool.query(sql, [entrada, entrada, entrada]).then(rows => {
+                resolve(rows);
+            }).catch(err => {
+                reject(err);
+            });
+        }
     });
 }
 
@@ -303,6 +317,17 @@ function insertNotification(id_notificacion, id_usuario, id_positivo) {
         const sql = 'INSERT INTO notificaciones (id_notificacion, id_usuario, id_positivo) VALUES (?, ?, ?)';
         pool.query(sql, [id_notificacion, id_usuario, id_positivo]).then(rows => {
             resolve();
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
+function getEstadisticas() {
+    return new Promise((resolve, reject) => {
+        const sql = 'select count(distinct usuarios.id_usuario) as usuarios, count(distinct id_oficina) as oficinas, count(distinct id_positivo) as positivos from usuarios, oficinas, positivos';
+        pool.query(sql).then(rows => {
+            resolve(rows);
         }).catch(err => {
             reject(err);
         });
@@ -334,5 +359,6 @@ module.exports = {
     getMaxAforo,
     getUserNotificationsPages,
     deleteNotification,
-    insertNotification
+    insertNotification,
+    getEstadisticas
 };

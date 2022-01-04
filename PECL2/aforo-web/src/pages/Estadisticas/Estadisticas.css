@@ -1,0 +1,69 @@
+.estadisticas {
+    background-color: rgb(25, 25, 25);
+    color: #fff;
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.estadisticas-title {
+    position: absolute;
+    top: 15%;
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.estadisticas-container {
+    position: absolute;
+    top: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.lista-estadisticas {
+    list-style: none;
+}
+
+.charts {
+    width: 60%;
+    height: 60%;
+}
+
+.chart {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1024px) {
+
+    .estadisticas-title {
+        font-size: 3rem;
+    }
+
+    .charts {
+        width: 90%;
+        height: 90%;
+    }
+
+    .chart {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+    

@@ -10,6 +10,8 @@ const { client } = require('./mqtt/mqtt_handler');
 const usersRoutes = require('./users/users.router').router;
 const notifyRoutes = require('./notify/notify.router').router;
 const oficinasRoutes = require('./oficinas/oficinas.router').router;
+const estadisticasRoutes = require('./estadisticas/estadisticas.router').router;
+
 const userMiddleware =  require('./middlewares/userMiddleware').userMiddleware;
 
 const db = require('./database/dbconnection');
@@ -34,6 +36,8 @@ app.get('/', (req, res) => {
 app.use('/users', usersRoutes);
 app.use('/notify', notifyRoutes);
 app.use('/oficinas', oficinasRoutes);
+app.use('/estadisticas', estadisticasRoutes);
+
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
 

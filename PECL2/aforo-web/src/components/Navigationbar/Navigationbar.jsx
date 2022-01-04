@@ -37,7 +37,8 @@ function Navigationbar() {
                                 title={window.sessionStorage.getItem('user')}
                             >
 
-                                <NavDropdown.Item as={Link} to={`/profile/${window.sessionStorage.getItem('user')}`} href={`/profile/${window.sessionStorage.getItem('user')}`}>
+                                {window.sessionStorage.getItem('user') !== 'admin' ? <>
+                                 <NavDropdown.Item as={Link} to={`/profile/${window.sessionStorage.getItem('user')}`} href={`/profile/${window.sessionStorage.getItem('user')}`}>
                                     Perfil &nbsp;
                                     <i className="far fa-user"></i>    
                                 </NavDropdown.Item>
@@ -49,6 +50,13 @@ function Navigationbar() {
                                     Covid &nbsp;
                                     <i className="fas fa-exclamation-circle"></i>
                                 </NavDropdown.Item>
+                                </>
+                                :
+                                <NavDropdown.Item as={Link} to="/estadisticas" href="/estadisticas">
+                                    Estadisticas &nbsp;
+                                    <i className="fas fa-chart-bar"></i>
+                                </NavDropdown.Item>
+                                }
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="/" onClick={handleClick}>
                                     Logout &nbsp;

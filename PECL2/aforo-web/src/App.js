@@ -13,6 +13,7 @@ import Notify from './pages/Notify/Notify'
 import NoPage from './pages/NoPage/NoPage'
 import Profile from './pages/Profile/Profile';
 import Notifications from './pages/Notifications/Notifications';
+import Estadisticas from './pages/Estadisticas/Estadisticas';
 
 import { UserContextProvider } from './context/UserContext';
 
@@ -29,6 +30,7 @@ function App() {
             <Route path='/profile/:username' component={Profile} />
             <Route path='/notify' component={Notify} />
             <Route path='/:username/notifications' component={Notifications} />
+            <Route path='/estadisticas' component={Estadisticas} />
             <Route component={NoPage} />
           </Switch>
         </Router>

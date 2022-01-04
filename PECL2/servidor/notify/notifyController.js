@@ -14,11 +14,11 @@ const notificar = (userid) => {
                     let listaNotificados = []
                     data.forEach(element => {
                         let entrada = dateToString(new Date(element.entrada))
-                        let salida = dateToString(new Date(element.salida))
+                        let salida = element.salida !== null ? dateToString(new Date(element.salida)) : null
                         db.getUsuariosInContactWithPositive(entrada, salida).then((usuarios) => {
                             if (usuarios) {
                                 usuarios.forEach(element => {
-                                    if (listaNotificados.indexOf(element.id_usuario) == -1) {
+                                    if (listaNotificados.indexOf(element.id_usuario) == -1 && element.id_usuario != userid) {
                                         listaNotificados.push(element.id_usuario)
                                         const id_notificacion = uuid.v4()
                                         db.insertNotification(id_notificacion, element.id_usuario, id_positivo).then(() => {
@@ -32,11 +32,9 @@ const notificar = (userid) => {
                             return reject(err)
                         })
                     })
-                } else {
-                    return reject('Data not found for that user')
                 }
-            }).catch((err) => {
-                return reject(err)
+            }).catch(() => {
+                return resolve() //significa que no hay usuarios con los que no ha coincidido, por eso se hace un resolve
             })
         }).catch((err) => {
             return reject(err)

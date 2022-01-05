@@ -4,56 +4,32 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
-
-//https://github.com/heyletscode/Android-App-Backend-With-Node-JS
-//Acabar
 
 public class LlamadaServer{
 
 
-    public static String POST(URL url,JSONObject cred) throws Exception {
+    public static String POST(URL url,byte[] request) throws Exception {
 
-
-
-
-
-        /*StringBuilder postData = new StringBuilder();
-        for (HashMap.Entry<String,String> param : request.entrySet()) {
-            if (postData.length() != 0) postData.append('&');
-            postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-            postData.append('=');
-            postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-        }
-        System.out.println(postData);
-        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-        */
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         if(conn != null)
         {
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Accept", "application/json");
+            int length = request.length;
 
+            /*conn.setRequestMethod("POST");
             conn.setDoOutput(true);
 
-            System.out.println(cred.toString());
+            conn.setFixedLengthStreamingMode(length);
+            conn.setRequestProperty("Content-Type", "application/json");
 
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write(cred.toString());
-            wr.flush();
-
+            conn.connect();
+            for (int i = 0; i < 100; i++) {System.out.println(".");}
+            OutputStream os = conn.getOutputStream();
+            os.write(request);
+            for (int i = 0; i < 100; i++) {System.out.println(".");}
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
             StringBuilder sb = new StringBuilder();
             String line = null;
@@ -62,8 +38,10 @@ public class LlamadaServer{
             }
             in.close();
             String response = sb.toString();
-            System.out.println(response);
-
+            for (int i = 0; i < 100; i++) {System.out.println(".");}
+            System.out.println(response);*/
+            
+            HttpPost
             return response;
         }else{
             System.out.println("Conexion fallida");

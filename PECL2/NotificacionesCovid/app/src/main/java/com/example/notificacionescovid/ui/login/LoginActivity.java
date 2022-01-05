@@ -39,10 +39,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    System.out.println(usernameEditText.getText().toString());
                     response = loginDataSource.login(usernameEditText.getText().toString().trim(),
                             passwordEditText.getText().toString().trim());
-
 
                     if (response == null) {
                         throw new Exception();
@@ -52,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                     setResult(Activity.RESULT_OK);
                 }catch (Exception e)
                 {
-                    Toast.makeText(getApplicationContext(), R.string.login_failed, Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

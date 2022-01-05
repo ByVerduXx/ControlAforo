@@ -31,10 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
         textoInicial.setText("Comeme las pelotas");*/
 
-
-
-
-
     }
 
     @Override

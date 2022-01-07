@@ -2,7 +2,9 @@ package com.example.notificacionescovid.data;
 
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -12,44 +14,46 @@ import java.net.URL;
 public class LlamadaServer{
 
 
-    public static String POST(URL url,byte[] request) throws Exception {
+    public static String POST(URL url,JSONObject request) throws Exception {
 
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        if(conn != null)
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+        urlConnection.setDoOutput(true);
+        urlConnection.setDoInput(true);
+        urlConnection.setRequestProperty("Content-Type", "application/json");
+        urlConnection.setRequestProperty("Accept", "application/json");
+
+        //Enviamos la peticion
+
+        char[] envio = request.toString().toCharArray();
+        for(int i=0;i<envio.length;i++)
         {
-            int length = request.length;
-
-            /*conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-
-            conn.setFixedLengthStreamingMode(length);
-            conn.setRequestProperty("Content-Type", "application/json");
-
-            conn.connect();
-            for (int i = 0; i < 100; i++) {System.out.println(".");}
-            OutputStream os = conn.getOutputStream();
-            os.write(request);
-            for (int i = 0; i < 100; i++) {System.out.println(".");}
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-            while ((line = in.readLine()) != null) {
-                sb.append(line + "\n");
+            if(envio[i] == '"')
+            {
+                envio[i] = ' ';
             }
-            in.close();
-            String response = sb.toString();
-            for (int i = 0; i < 100; i++) {System.out.println(".");}
-            System.out.println(response);*/
-            
-            HttpPost
-            return response;
-        }else{
-            System.out.println("Conexion fallida");
-            return null;
-
         }
+        String requestFinal = String.valueOf(envio);
+        System.out.println(requestFinal);
+
+        OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
+        wr.write(requestFinal);
+        wr.close();
 
 
+        System.out.println("Peticion enviada");
+
+        //Construimos la respuesta
+        String line = "";
+        InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+        BufferedReader reader = new BufferedReader((new InputStreamReader(in)));
+        StringBuilder sb = new StringBuilder();
+        while((line = reader.readLine()) != null)
+        {
+            sb.append(line).append('\n');
+        }
+        in.close();
+        System.out.println("Respuesta recibida");
+        return sb.toString();
     }
-
 }

@@ -16,7 +16,7 @@ public class LoginDataSource {
     public LoginDataSource()
     {
         try {
-            url = new URL("http://192.168.1.136:3001/users/login");
+            url = new URL("http://192.168.1.69:3001/users/login");
         } catch (Exception e) {
             e.getStackTrace();
         }
@@ -26,15 +26,21 @@ public class LoginDataSource {
 
         String token = null;
 
-        String out = "{\"username\":\"%s\",\"password\":\"%s\"}";
+        /*String out = "{\"username\":\"%s\",\"password\":\"%s\"}";
         out = String.format(out, username, password);
         byte[] json = out.getBytes(StandardCharsets.UTF_8);
+        */
+        JSONObject request = new JSONObject();
+        JSONObject cred = new JSONObject();
+        cred.put("username","'"+username+"'");
+        cred.put("password","'"+password+"'");
+        request.put("body",cred);
 
 
 
-        String response = LlamadaServer.POST(url, json);
+        String response = LlamadaServer.POST(url, request);
         System.out.println(response);
-        if(response != null)
+        if(!response.equals(""))
         {
             token = "ey193829303403940394";
         }

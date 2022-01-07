@@ -6,4 +6,7 @@ const authMiddleware = require('../middlewares/authMiddleware').authMiddleware
 router.route('/')
     .get(authMiddleware,estadisticasHttpHandler.getEstadisticas);
 
+router.route('/positivos')
+    .get(authMiddleware,estadisticasHttpHandler.getPositivos);
+
 exports.router = router;

@@ -334,6 +334,28 @@ function getEstadisticas() {
     });
 }
 
+function getEstadisticasPositivosAño(año) {
+    return new Promise((resolve, reject) => {
+        const sql = 'select MonthName(fecha_positivo) as label, count(id_positivo) as positivos from positivos where year(fecha_positivo) = ? group by label';
+        pool.query(sql, [año]).then(rows => {
+            resolve(rows);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
+function getEstadisticasPositivosTotal() {
+    return new Promise((resolve, reject) => {
+        const sql = 'select year(fecha_positivo) as label, count(id_positivo) as positivos from positivos group by label';
+        pool.query(sql).then(rows => {
+            resolve(rows);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 module.exports = {
     getTest,
     getUserIdFromUserName,
@@ -360,5 +382,7 @@ module.exports = {
     getUserNotificationsPages,
     deleteNotification,
     insertNotification,
-    getEstadisticas
+    getEstadisticas,
+    getEstadisticasPositivosAño,
+    getEstadisticasPositivosTotal
 };

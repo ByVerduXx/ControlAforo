@@ -12,4 +12,17 @@ const getEstadisticas = async (req, res) => {
     })
 }
 
+const getPositivos = async (req, res) => {
+    if (httpContext.get('user') !== 'admin') {
+        return res.status(401).json({ message: 'Unauthorized' })
+    }
+    const total = req.query.total || false
+    estadisticasController.getPositivos(total).then((estadisticas) => {
+        return res.status(200).json(estadisticas)
+    }).catch((err) => {
+        return res.status(400).json({ message: err })
+    })
+}
+
 exports.getEstadisticas = getEstadisticas;
+exports.getPositivos = getPositivos;

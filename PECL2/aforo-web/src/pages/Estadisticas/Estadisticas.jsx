@@ -20,31 +20,32 @@ import './Estadisticas.css'
 function Estadisticas() {
 
     const history = useHistory();
-    const { estadisticas, getEstadisticas } = useEstadisticas();
+    const { estadisticas, getEstadisticas, getPositivos, positivosData, positivosLabels } = useEstadisticas();
 
     useEffect(() => {
         if (window.sessionStorage.getItem('user') !== 'admin') {
             history.push('/');
         }
         getEstadisticas();
-    }, [history, getEstadisticas]);
+        getPositivos(false);
+    }, [history, getEstadisticas, getPositivos]);
 
     ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, LineElement, PointElement);
-    const options = {
+
+    const positivosOptions = {
         plugins: {
             legend: {
                 position: 'top',
             },
             title: {
                 display: true,
-                text: 'Positivos al mes',
+                text: 'Positivos',
             },
         },
     }
 
-    const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-    const data = {
-        labels,
+    const positivosChart = {
+        labels: positivosLabels,
         datasets: [
             {
                 label: 'Positivos',
@@ -53,8 +54,12 @@ function Estadisticas() {
                 borderWidth: 1,
                 hoverBackgroundColor: 'rgba(255,99,132,0.4)',
                 hoverBorderColor: 'rgba(255,99,132,1)',
-                data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56]
+                data: positivosData
             },]
+    }
+
+    const handleChange = (e) => {
+        getPositivos(e.target.value);
     }
 
     return (
@@ -70,13 +75,13 @@ function Estadisticas() {
                     <div className='positivos-chart chart'>
                         <h3>Número de positivos</h3>
                         <div className="selector">
-                            <select>
-                                <option value="1">Este año</option>
-                                <option value="2">Este mes</option>
+                            <select defaultValue={false} onChange={handleChange}>
+                                <option value={false}>Este año</option>
+                                <option value={true}>Total</option>
                             </select>
                             <span className='custom-arrow'></span>
                         </div>
-                        <Bar options={options} data={data} />
+                        <Bar options={positivosOptions} data={positivosChart} />
                     </div>
                     <div className='otro-chart chart'>
                         <div className="selector">
@@ -86,7 +91,7 @@ function Estadisticas() {
                             </select>
                             <span className='custom-arrow'></span>
                         </div>
-                        <Line options={options} data={data}/>
+                        <Line options={positivosOptions} data={positivosChart}/>
                     </div>
                 </div>
             </div>

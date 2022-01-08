@@ -11,38 +11,21 @@ import java.nio.charset.StandardCharsets;
  */
 public class LoginDataSource {
 
-    private URL url;
-
-    public LoginDataSource()
-    {
-        try {
-            url = new URL("http://192.168.1.69:3001/users/login");
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-    }
+    private final LlamadaServer server = new LlamadaServer();
 
     public String login(String username, String password) throws Exception{
 
         String token = null;
-
-        /*String out = "{\"username\":\"%s\",\"password\":\"%s\"}";
-        out = String.format(out, username, password);
-        byte[] json = out.getBytes(StandardCharsets.UTF_8);
-        */
         JSONObject request = new JSONObject();
-        JSONObject cred = new JSONObject();
-        cred.put("username","'"+username+"'");
-        cred.put("password","'"+password+"'");
-        request.put("body",cred);
+        request.put("username",username);
+        request.put("password",password);
 
 
 
-        String response = LlamadaServer.POST(url, request);
-        System.out.println(response);
-        if(!response.equals(""))
+        JSONObject response = server.POST(request);
+        if(response != null)
         {
-            token = "ey193829303403940394";
+            token = response.get("token").toString();
         }
         return token;
     }

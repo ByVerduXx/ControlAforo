@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 try {
                     response = loginDataSource.login(usernameEditText.getText().toString().trim(),
                             passwordEditText.getText().toString().trim());
@@ -50,7 +50,8 @@ public class LoginActivity extends AppCompatActivity {
                     setResult(Activity.RESULT_OK);
                 }catch (Exception e)
                 {
-
+                    System.out.println(e);
+                    //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });

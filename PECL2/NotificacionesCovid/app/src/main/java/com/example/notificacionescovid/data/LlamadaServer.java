@@ -29,6 +29,7 @@ public class LlamadaServer{
 
     public synchronized JSONObject POST(JSONObject request) throws Exception {
 
+        //Conectamos con el servidor
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
         urlConnection.setDoOutput(true);
@@ -36,16 +37,9 @@ public class LlamadaServer{
         urlConnection.setRequestProperty("Content-Type", "application/json");
         urlConnection.setRequestProperty("Accept", "application/json");
         urlConnection.connect();
+
+
         //Enviamos la peticion
-
-        char[] envio = request.toString().toCharArray();
-        for (int i = 0; i < envio.length; i++) {
-            if (envio[i] == '"') {
-                envio[i] = ' ';
-            }
-        }
-        String requestFinal = String.valueOf(envio);
-
         OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
         wr.write(request.toString());
         wr.flush();

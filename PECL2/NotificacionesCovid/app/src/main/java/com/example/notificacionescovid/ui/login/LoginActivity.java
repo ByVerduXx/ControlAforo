@@ -50,8 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                     setResult(Activity.RESULT_OK);
                 }catch (Exception e)
                 {
-                    System.out.println(e);
-                    //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.login_failed, Toast.LENGTH_LONG).show();
                 }
             }
         });

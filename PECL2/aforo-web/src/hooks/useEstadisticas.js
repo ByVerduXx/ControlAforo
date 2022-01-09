@@ -42,14 +42,18 @@ export default function useEstadisticas () {
     const getAforo = useCallback(() => {
         const jwt = window.sessionStorage.getItem('jwt');
         let data = new Array(24).fill(0);
+        let promises = [];
         for (let i = 0; i < 24; i++) {
-            getAforoHora(jwt, i).then(response => {
-                data[i] = response;
-            }).catch(err => {
-                data.push(0);
-            });
+            promises.push(getAforoHora(jwt, i));
         }
-        setAforoData(data);
+        Promise.all(promises).then(response => {
+            response.forEach(element => {
+                data[element.hora] = element.aforo;
+            });
+            setAforoData(data);
+        }).catch(err => {
+            console.log(err);
+        });
     }, []);
 
     return {

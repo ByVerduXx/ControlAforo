@@ -69,6 +69,13 @@ function Estadisticas() {
                 text: 'Aforo',
             },
         },
+        scales: {
+            y: {
+                ticks: {
+                    beginAtZero: true,
+                }
+            }
+        }
     }
 
     const aforoChart = {

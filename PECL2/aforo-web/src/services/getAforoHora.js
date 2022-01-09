@@ -12,7 +12,7 @@ export default function getAforoHora(jwt, hora) {
         return res.json()
     })
     .then(data => {
-        return data
+        return {hora: hora, aforo: data}
     }).catch(err => {
         console.log(err)
     })

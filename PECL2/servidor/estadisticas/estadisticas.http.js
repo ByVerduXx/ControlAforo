@@ -24,5 +24,18 @@ const getPositivos = async (req, res) => {
     })
 }
 
+const getAforoHora = async (req, res) => {
+    if (httpContext.get('user') !== 'admin') {
+        return res.status(401).json({ message: 'Unauthorized' })
+    }
+    const hora = req.query.hora || 0
+    estadisticasController.getAforoHora(hora).then((aforo) => {
+        return res.status(200).json(aforo)
+    }).catch((err) => {
+        return res.status(400).json({ message: err })
+    })
+}
+
 exports.getEstadisticas = getEstadisticas;
 exports.getPositivos = getPositivos;
+exports.getAforoHora = getAforoHora;

@@ -41,5 +41,20 @@ const getPositivos = (total) => {
     })
 }
 
+const getAforoHora = (hora) => {
+    return new Promise((resolve, reject) => {
+        db.getAforoHora(hora).then((estadisticas) => {
+            if (estadisticas.aforo !== null) {
+                return resolve(estadisticas.aforo)
+            } else {
+                return resolve(0)
+            }
+        }).catch((err) => {
+            return reject(err)
+        })
+    })
+}
+
 exports.getEstadisticas = getEstadisticas;
 exports.getPositivos = getPositivos;
+exports.getAforoHora = getAforoHora;

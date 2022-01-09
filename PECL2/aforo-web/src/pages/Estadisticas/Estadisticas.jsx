@@ -20,7 +20,7 @@ import './Estadisticas.css'
 function Estadisticas() {
 
     const history = useHistory();
-    const { estadisticas, getEstadisticas, getPositivos, positivosData, positivosLabels } = useEstadisticas();
+    const { estadisticas, getEstadisticas, getPositivos, positivosData, positivosLabels, aforoData, aforoLabels, getAforo } = useEstadisticas();
 
     useEffect(() => {
         if (window.sessionStorage.getItem('user') !== 'admin') {
@@ -28,7 +28,8 @@ function Estadisticas() {
         }
         getEstadisticas();
         getPositivos(false);
-    }, [history, getEstadisticas, getPositivos]);
+        getAforo();
+    }, [history, getEstadisticas, getPositivos, getAforo]);
 
     ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, LineElement, PointElement);
 
@@ -58,6 +59,32 @@ function Estadisticas() {
             },]
     }
 
+    const aforoOptions = {
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Aforo',
+            },
+        },
+    }
+
+    const aforoChart = {
+        labels: aforoLabels,
+        datasets: [
+            {
+                label: 'Aforo',
+                backgroundColor: 'rgba(255,99,132,0.2)',
+                borderColor: 'rgba(255,99,132,1)',
+                borderWidth: 1,
+                hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                hoverBorderColor: 'rgba(255,99,132,1)',
+                data: aforoData
+            },]
+    }
+
     const handleChange = (e) => {
         getPositivos(e.target.value);
     }
@@ -84,6 +111,7 @@ function Estadisticas() {
                         <Bar options={positivosOptions} data={positivosChart} />
                     </div>
                     <div className='otro-chart chart'>
+                        <h3>Aforo medio por hora</h3>
                         <div className="selector">
                             <select>
                                 <option value="1">Este año</option>
@@ -91,7 +119,7 @@ function Estadisticas() {
                             </select>
                             <span className='custom-arrow'></span>
                         </div>
-                        <Line options={positivosOptions} data={positivosChart}/>
+                        <Line options={aforoOptions} data={aforoChart}/>
                     </div>
                 </div>
             </div>

@@ -10,10 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.notificacionescovid.MainActivity;
 import com.example.notificacionescovid.R;
 import com.example.notificacionescovid.data.LoginDataSource;
 

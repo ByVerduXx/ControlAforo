@@ -1,6 +1,8 @@
 package com.example.notificacionescovid.data;
 
 
+import android.widget.Toast;
+
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -21,16 +23,14 @@ public class LoginDataSource {
         request.put("password",password);
 
 
-        
+
         JSONObject response = server.POST(request);
         if(response != null)
         {
             token = response.get("token").toString();
         }
+
         return token;
     }
 
-    public void logout() {
-        // TODO: revoke authentication
-    }
 }

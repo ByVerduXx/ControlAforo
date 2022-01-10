@@ -119,13 +119,6 @@ function Estadisticas() {
                     </div>
                     <div className='otro-chart chart'>
                         <h3>Aforo medio por hora</h3>
-                        <div className="selector">
-                            <select>
-                                <option value="1">Este año</option>
-                                <option value="2">Este mes</option>
-                            </select>
-                            <span className='custom-arrow'></span>
-                        </div>
                         <Line options={aforoOptions} data={aforoChart}/>
                     </div>
                 </div>

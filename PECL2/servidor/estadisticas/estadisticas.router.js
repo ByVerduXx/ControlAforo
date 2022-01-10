@@ -9,4 +9,7 @@ router.route('/')
 router.route('/positivos')
     .get(authMiddleware,estadisticasHttpHandler.getPositivos);
 
+router.route('/aforo_hora')
+    .get(authMiddleware,estadisticasHttpHandler.getAforoHora);
+
 exports.router = router;

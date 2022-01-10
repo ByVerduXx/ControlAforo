@@ -356,6 +356,17 @@ function getEstadisticasPositivosTotal() {
     });
 }
 
+function getAforoHora(hora) {
+    return new Promise((resolve, reject) => {
+        const sql = 'select count(*)/count(distinct day(entrada)) as aforo from log where hour(entrada) < ? and (hour(salida) = ? or salida is null)';
+        pool.query(sql, [hora, hora]).then(rows => {
+            resolve(rows[0])
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 module.exports = {
     getTest,
     getUserIdFromUserName,
@@ -384,5 +395,6 @@ module.exports = {
     insertNotification,
     getEstadisticas,
     getEstadisticasPositivosAño,
-    getEstadisticasPositivosTotal
+    getEstadisticasPositivosTotal,
+    getAforoHora
 };

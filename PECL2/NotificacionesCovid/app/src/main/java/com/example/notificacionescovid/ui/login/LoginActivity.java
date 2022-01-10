@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
         sp = getSharedPreferences("login",MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.remove("token");
+        editor.putString("token",token);
         editor.commit();
 
         String welcome = getString(R.string.welcome) + user;

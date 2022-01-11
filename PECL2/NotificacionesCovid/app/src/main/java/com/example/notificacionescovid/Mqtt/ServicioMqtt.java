@@ -3,6 +3,7 @@ package com.example.notificacionescovid.Mqtt;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,13 +14,13 @@ import android.os.IBinder;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.notificacionescovid.MainActivity;
 import com.example.notificacionescovid.R;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -183,12 +184,15 @@ public class ServicioMqtt extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),"Positivo");
         builder.setSmallIcon(R.drawable.ic_launcher_foreground);
         builder.setContentTitle("Contacto con Positivo Covid");
-        builder.setContentText("El usuario " + msn + " ha dado positivo en covid. Has coincidido con el en los últimos 7 días.");
         builder.setColor(Color.BLUE);
-        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
         builder.setLights(Color.BLUE,1000,1000);
         builder.setVibrate(new long[]{1000,1000,1000,1000});
         builder.setDefaults(Notification.DEFAULT_SOUND);
+        builder.setShowWhen(true);
+        builder.setContentIntent(PendingIntent.getActivity(this,0,new Intent(this, MainActivity.class),0));
+        builder.setStyle(new NotificationCompat.BigTextStyle()
+                .bigText("El usuario "+msn+" ha dado positivo en covid y ha estado en contacto con usted. Guarde cuarentena"));
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.notify(NOTIFICATION_ID,builder.build());

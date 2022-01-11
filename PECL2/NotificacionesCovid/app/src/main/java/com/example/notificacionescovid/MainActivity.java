@@ -1,19 +1,16 @@
 package com.example.notificacionescovid;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.notificacionescovid.data.LoginDataSource;
-import com.example.notificacionescovid.databinding.ActivityMainBinding;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.notificacionescovid.Mqtt.ServicioMqtt;
 import com.example.notificacionescovid.ui.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,17 +19,16 @@ public class MainActivity extends AppCompatActivity {
     TextView oficina;
     TextView aforo;
     TextView positivo;
-    public static final int REQUEST_CODE = 1;
+    SharedPreferences sp;
+    Intent mqtt;
+    Intent login;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
@@ -41,23 +37,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-        Intent intent = new Intent(this, LoginActivity.class);
-
-        startActivity(intent);
+        iniciarLogin();
+        iniciarMqtt();
 
 
+    }
 
-        /*textoInicial = this.findViewById(R.id.TextView);
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        textoInicial.setText("Comeme las pelotas");*/
+        actualizarDatos();
+        iniciarMqtt();
+
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-
         getMenuInflater().inflate(R.menu.menu_main_activity,menu);
         return true;
     }
@@ -65,14 +63,37 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        SharedPreferences sp = getSharedPreferences("login",MODE_PRIVATE);
+        sp = getSharedPreferences("login",MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.remove("token");
+        editor.remove("usuario");
         editor.commit();
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        stopService(mqtt);
+        iniciarLogin();
 
         return true;
+    }
+
+    public void actualizarDatos()
+    {
+        usuario = findViewById(R.id.usuario);
+        sp = getSharedPreferences("login",MODE_PRIVATE);
+
+        String username = sp.getString("usuario","");
+        usuario = findViewById(R.id.usuario);
+        usuario.setText("Usuario: "+username);
+
+    }
+
+    public void iniciarLogin()
+    {
+        login = new Intent(this, LoginActivity.class);
+        startActivity(login);
+    }
+
+    public void iniciarMqtt()
+    {
+        mqtt = new Intent(this, ServicioMqtt.class);
+        startService(mqtt);
     }
 }

@@ -1,16 +1,14 @@
 package com.example.notificacionescovid.ui.login;
 
 import android.app.Activity;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.notificacionescovid.R;
 import com.example.notificacionescovid.data.LoginDataSource;
@@ -28,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
 
         sp = getSharedPreferences("login",MODE_PRIVATE);
-        if(!sp.getString("token", "").equals(""))
+        if(!sp.getString("usuario", "").equals(""))
         {
             finish();
         }
@@ -54,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (response == null) {
                         throw new Exception();
                     }
-                    updateUiWithUser(usernameEditText.getText().toString(),response);
+                    updateUiWithUser(usernameEditText.getText().toString());
                     finish();
                     setResult(Activity.RESULT_OK);
                 }catch (Exception e)
@@ -67,11 +65,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void updateUiWithUser(String user,String token) {
+    private void updateUiWithUser(String user) {
 
         sp = getSharedPreferences("login",MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("token",token);
+        editor.putString("usuario",user);
         editor.commit();
 
         String welcome = getString(R.string.welcome) + user;

@@ -20,7 +20,10 @@ import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class ServicioMqtt extends Service {
@@ -28,6 +31,7 @@ public class ServicioMqtt extends Service {
 
 
     private MqttAndroidClient client;
+    private MqttConnectOptions options;
     private final int NOTIFICATION_ID = 0;
 
     public void onCreate()
@@ -35,13 +39,58 @@ public class ServicioMqtt extends Service {
         super.onCreate();
 
         String clientId = MqttClient.generateClientId();
-        client = new MqttAndroidClient(this.getApplicationContext(),"tcp://192.168.1.69:1883",clientId);
+        client = new MqttAndroidClient(this.getApplicationContext(),"tcp://192.168.1.166:1883",clientId);
+
+        options = new MqttConnectOptions();
+        options.setCleanSession(true);
+        options.setAutomaticReconnect(true);
     }
 
     @Override
     public int onStartCommand(Intent intent,int flags, int startId)
     {
-        try
+        client.setCallback(new MqttCallbackExtended() {
+            @Override
+            public void connectComplete(boolean reconnect, String serverURI) {
+                System.out.println("Se ha conectado");
+            }
+
+            @Override
+            public void connectionLost(Throwable cause) {
+                System.out.println("Se ha perdido la conexion");
+            }
+
+            @Override
+            public void messageArrived(String topic, MqttMessage message) throws Exception {
+                System.out.println("Ha llegado un mensaje");
+                createNotificationChannel();
+                createNotification(message.toString());
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken token) {
+
+            }
+        });
+        try {
+            client.connect(options, new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    System.out.println("Conectado");
+                    SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
+                    System.out.println(sp.getString("usuario", ""));
+                    suscribirTopic(sp.getString("usuario", ""));
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    System.out.println("Failure");
+                }
+            });
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        /*try
         {
 
             IMqttToken token = client.connect();
@@ -91,7 +140,7 @@ public class ServicioMqtt extends Service {
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {}
         });
-
+*/
     return START_STICKY;
     }
 
@@ -134,7 +183,7 @@ public class ServicioMqtt extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),"Positivo");
         builder.setSmallIcon(R.drawable.ic_launcher_foreground);
         builder.setContentTitle("Contacto con Positivo Covid");
-        builder.setContentText(msn);
+        builder.setContentText("El usuario " + msn + " ha dado positivo en covid. Has coincidido con el en los últimos 7 días.");
         builder.setColor(Color.BLUE);
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         builder.setLights(Color.BLUE,1000,1000);

@@ -36,21 +36,15 @@ public class MainActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
-
         iniciarLogin();
-        iniciarMqtt();
-
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         actualizarDatos();
         iniciarMqtt();
-
-
     }
 
     @Override

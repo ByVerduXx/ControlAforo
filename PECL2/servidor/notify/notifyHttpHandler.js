@@ -6,7 +6,8 @@ const notifyController = require('./notifyController')
 const sendNotification = async (req, res) => {
     
     const userid = httpContext.get('userid')
-    let [err, resp] = await to(notifyController.notificar(userid));
+    const username = httpContext.get('user')
+    let [err, resp] = await to(notifyController.notificar(userid, username));
     if (err) {
         return res.status(400).json({ message: err })
     }

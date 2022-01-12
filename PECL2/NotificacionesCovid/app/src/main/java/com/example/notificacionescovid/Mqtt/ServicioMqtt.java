@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -18,16 +17,10 @@ import com.example.notificacionescovid.MainActivity;
 import com.example.notificacionescovid.R;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
-import org.eclipse.paho.client.mqttv3.IMqttActionListener;
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.*;
 
-public class ServicioMqtt extends Service {
+
+public class ServicioMqtt extends org.eclipse.paho.android.service.MqttService {
 
 
 
@@ -39,17 +32,19 @@ public class ServicioMqtt extends Service {
     {
         super.onCreate();
 
-        String clientId = MqttClient.generateClientId();
-        client = new MqttAndroidClient(this.getApplicationContext(),"tcp://192.168.1.166:1883",clientId);
-
         options = new MqttConnectOptions();
         options.setCleanSession(true);
         options.setAutomaticReconnect(true);
+
     }
 
     @Override
     public int onStartCommand(Intent intent,int flags, int startId)
     {
+        String clientId = MqttClient.generateClientId();
+        client = new MqttAndroidClient(this.getApplicationContext(),"tcp://192.168.1.11:1883",clientId);
+
+
         client.setCallback(new MqttCallbackExtended() {
             @Override
             public void connectComplete(boolean reconnect, String serverURI) {
@@ -77,10 +72,14 @@ public class ServicioMqtt extends Service {
             client.connect(options, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
+
                     System.out.println("Conectado");
                     SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
-                    System.out.println(sp.getString("usuario", ""));
-                    suscribirTopic(sp.getString("usuario", ""));
+                    if(!sp.getString("usuario", "").equals(""))
+                    {
+                        System.out.println(sp.getString("usuario", ""));
+                        suscribirTopic(sp.getString("usuario", ""));
+                    }
                 }
 
                 @Override
@@ -91,57 +90,7 @@ public class ServicioMqtt extends Service {
         } catch (MqttException e) {
             e.printStackTrace();
         }
-        /*try
-        {
 
-            IMqttToken token = client.connect();
-            System.out.println("Comprobamos la conexion");
-
-            token.setActionCallback(new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-
-                    System.out.println("MQTT connected");
-
-                    //Nos suscribimos al topic
-                    SharedPreferences sp = getSharedPreferences("login",MODE_PRIVATE);
-                    suscribirTopic(sp.getString("usuario",""));
-
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    System.out.println("Error conectando a MQTT");
-                }
-            });
-
-
-        }catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        client.setCallback(new MqttCallback() {
-            @Override
-            public void connectionLost(Throwable cause) {}
-
-            @Override
-            public void messageArrived(String topic, MqttMessage message) throws Exception {
-
-                if(topic.contains("alert"))
-                {
-                    String mqttText = new String(message.getPayload());
-
-                    createNotificationChannel();
-                    createNotification(mqttText);
-                }
-
-            }
-
-            @Override
-            public void deliveryComplete(IMqttDeliveryToken token) {}
-        });
-*/
     return START_STICKY;
     }
 
@@ -198,4 +147,40 @@ public class ServicioMqtt extends Service {
         notificationManagerCompat.notify(NOTIFICATION_ID,builder.build());
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            client.disconnect();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        System.out.println("MQTT Reiniciado");
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -141,6 +141,7 @@ public class ServicioMqtt extends Service{
         builder.setVibrate(new long[]{1000,1000,1000,1000});
         builder.setDefaults(Notification.DEFAULT_SOUND);
         builder.setShowWhen(true);
+        builder.setSmallIcon(R.drawable.ic_stat_name);
         builder.setContentIntent(PendingIntent.getActivity(this,0,new Intent(this, MainActivity.class),0));
         builder.setStyle(new NotificationCompat.BigTextStyle()
                 .bigText("El usuario "+msn+" ha dado positivo en covid y ha estado en contacto con usted. Guarde cuarentena"));

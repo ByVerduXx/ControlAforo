@@ -14,7 +14,7 @@ public class LlamadaServer{
 
     public LlamadaServer() {
         try {
-            this.url = new URL("http://192.168.1.69:3001/users/login");
+            this.url = new URL("http://192.168.1.136:3001/users/login");
         } catch (Exception e) {
             e.getStackTrace();
         }

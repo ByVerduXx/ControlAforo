@@ -44,7 +44,7 @@ public class ServicioMqtt extends Service{
     public int onStartCommand(Intent intent,int flags, int startId)
     {
         String clientId = MqttClient.generateClientId();
-        client = new MqttAndroidClient(this.getApplicationContext(),"tcp://192.168.1.11:1883",clientId);
+        client = new MqttAndroidClient(this.getApplicationContext(),"tcp://192.168.1.166:1883",clientId);
 
 
         client.setCallback(new MqttCallbackExtended() {

@@ -295,14 +295,14 @@ function insertPositivo(id_positivo, id_usuario, fecha) {
 function getUsuariosInContactWithPositive(entrada, salida) {
     return new Promise((resolve, reject) => {
         if (salida !== null) {
-            const sql = 'select * from log where (entrada < ? and ((salida > ? and salida < ?) or salida is null)) or (entrada > ? and entrada < ?)'
+            const sql = 'select log.id_usuario, usuarios.username from log inner join usuarios on log.id_usuario = usuarios.id_usuario where (entrada < ? and ((salida > ? and salida < ?) or salida is null)) or (entrada > ? and entrada < ?)'
             pool.query(sql, [entrada, entrada, salida, entrada, salida]).then(rows => {
                 resolve(rows);
             }).catch(err => {
                 reject(err);
             });
         } else {
-            const sql = 'select * from log where salida is null or entrada > ? or (entrada < ? and salida > ?)'
+            const sql = 'select log.id_usuario, usuarios.username from log inner join usuarios on log.id_usuario = usuarios.id_usuario where salida is null or entrada > ? or (entrada < ? and salida > ?)'
             pool.query(sql, [entrada, entrada, entrada]).then(rows => {
                 resolve(rows);
             }).catch(err => {
@@ -336,7 +336,7 @@ function getEstadisticas() {
 
 function getEstadisticasPositivosAño(año) {
     return new Promise((resolve, reject) => {
-        const sql = 'select MonthName(fecha_positivo) as label, count(id_positivo) as positivos from positivos where year(fecha_positivo) = ? group by label';
+        const sql = 'select MonthName(fecha_positivo) as label, count(id_positivo) as positivos from positivos where year(fecha_positivo) = ? group by label order by Month(fecha_positivo)';
         pool.query(sql, [año]).then(rows => {
             resolve(rows);
         }).catch(err => {

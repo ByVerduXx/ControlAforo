@@ -3,7 +3,7 @@ import datetime
 
 
 def gen_fecha():
-    f = open ("log.txt","a")
+    f = open ("log.sql","w")
     f.write("INSERT INTO log (id_usuario, entrada, salida) VALUES \n")
     for i in range (10,13):
         if i == 10 or i == 12:
@@ -47,7 +47,7 @@ def gen_fecha():
                     f.write("'")
                     f.write(str(hora_salida))
                     f.write("'")
-                    f.write(")")
+                    f.write("),")
                     f.write("\n")
     f.write(";")
     f.close()

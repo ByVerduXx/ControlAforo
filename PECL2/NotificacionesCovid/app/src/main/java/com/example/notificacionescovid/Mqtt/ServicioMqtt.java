@@ -28,6 +28,7 @@ public class ServicioMqtt extends Service{
     private MqttAndroidClient client;
     private MqttConnectOptions options;
     private final int NOTIFICATION_ID = 0;
+    private final String CHANNEL_ID = "channelid";
 
     public void onCreate()
     {
@@ -92,7 +93,7 @@ public class ServicioMqtt extends Service{
             e.printStackTrace();
         }
 
-    return START_STICKY;
+    return Service.START_STICKY;
     }
 
 
@@ -121,21 +122,21 @@ public class ServicioMqtt extends Service{
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
             CharSequence nombre = "Notificacion";
-            NotificationChannel notificationChannel = new NotificationChannel("Positivo",nombre, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID,nombre, NotificationManager.IMPORTANCE_HIGH);
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(notificationChannel);
-
         }
     }
 
     private void createNotification(String msn)
     {
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),"Positivo");
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
         builder.setSmallIcon(R.drawable.ic_launcher_foreground);
         builder.setContentTitle("Contacto con Positivo Covid");
+        builder.setContentText("El usuario "+msn+" ha dado positivo en covid y ha estado en contacto con usted. Guarde cuarentena");
         builder.setColor(Color.BLUE);
-        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+        builder.setPriority(NotificationCompat.PRIORITY_MAX);
         builder.setLights(Color.BLUE,1000,1000);
         builder.setVibrate(new long[]{1000,1000,1000,1000});
         builder.setDefaults(Notification.DEFAULT_SOUND);

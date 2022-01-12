@@ -15,7 +15,6 @@ const estadisticasRoutes = require('./estadisticas/estadisticas.router').router;
 const userMiddleware =  require('./middlewares/userMiddleware').userMiddleware;
 
 const db = require('./database/dbconnection');
-const mqtt = require('./mqtt/mqtt_handler').client;
 
 const app = express();
 
@@ -31,7 +30,6 @@ app.use(userMiddleware)
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
-    mqtt.publish('test', 'Hello World!');
 });
 
 

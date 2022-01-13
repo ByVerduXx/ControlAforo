@@ -20,7 +20,7 @@ function getTest() {
 
 function getUserIdFromUserName(userName) {
     return new Promise((resolve, reject) => {
-        const sql = 'SELECT id_usuario FROM usuarios WHERE username = ?';
+        const sql = 'SELECT id_usuario FROM usuarios WHERE BINARY username = ?';
         pool.query(sql, [userName]).then(rows => {
             if (rows.length > 0) {
                 resolve(rows[0].id_usuario);

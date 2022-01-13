@@ -30,6 +30,7 @@ app.use(userMiddleware)
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
+    client.publish('test', 'Hello World!');
 });
 
 

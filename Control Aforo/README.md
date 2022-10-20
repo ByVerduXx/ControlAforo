@@ -2,11 +2,11 @@
 
 En este proyecto encontraremos distintas carpetas, que engloban a toda la aplicación.
 
-### Aforo-Web
+## Aforo-Web
 
 En esta carpeta se encuentra la página web, hecha con React. En ella encontraremos el manual de instalación y puesta en marcha de la web.
 
-### Base de datos
+## Base de datos
 
 En esta carpeta, como su propio nombre indica, encontraremos la base de datos del proyecto, con su modelo entidad relación.
 

@@ -1,5 +1,0 @@
-Respecto a la tecnología a utilizar, podemos dividirla en 4 partes: percepction layer(tecnología referida al hardware a utilizar), network layer(tecnología referida a conexiones
-inalámbricas), processing layer(tecnología con la que captar la información hardware) y por último application layer(tecnología que utilizará el usuario final).
-En la primera capa, disponemos de una placa NodeMCU para transmitir los datos al servidor y un NFID que captará nuestros llaveros NFC. Para la segunda capa usaremos el wifi
-de 2,4 Ghz que lleva la propia placa, para la capa de proceso utilizaremos un servidor mqtt para recibir la información de la placa, un servidor apache y una base de datos
-mysql. Por último, en la última capa haremos uso de react para crear un entorno web y posiblemente utilizaremos una aplicación Android.

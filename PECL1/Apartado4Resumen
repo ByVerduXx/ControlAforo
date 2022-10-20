@@ -1,6 +1,0 @@
-Idea nº1: ultrasonidos: pros: fácil implementación, bajo coste, alta fiabilidad.
-Contras: necesarias 2 puertas (entrada y salida), no hay forma de identificar a la persona.
-Idea nº2: reconocimiento facial: pros: muy fiable. Contras: no necesarias 2 puertas (entrada y salida), alto coste de producción.
-Idea nº3: infrarrojos: pros: ffácil implementación y bajo coste. Contras: baja fiabilidad, 2 puertas y no hay forma de identificar.
-Idea nº4: modulo NFC: pros: fácil implementación, bajo coste, 1 sola puerta, se puede identificar a la gente, alta fiabilidad
-Conclusion: al principio pensamos que lo mas eficiente seria un ultrasonidos, pero según empezamos a desarrollar ideas nos decantamos por el NFC por todas las ventajas respecto al resto de opciones.

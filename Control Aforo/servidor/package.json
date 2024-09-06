@@ -9,14 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-http-context": "^1.2.4",
-    "jsonwebtoken": "^8.5.1",
-    "mariadb": "^2.5.5",
-    "mqtt": "^4.2.8",
+    "jsonwebtoken": "^9.0.2",
+    "mariadb": "^3.1.0",
+    "mqtt": "^5.7.2",
     "passport": "^0.5.0",
     "passport-jwt": "^4.0.0",
     "uuid": "^8.3.2"
